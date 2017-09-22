@@ -153,6 +153,7 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 				doc.createElement(RULE);
 
 			constraints.appendChild(rule);
+			addDescription(doc, object.getConstraints().get(i), rule);
 			createPropositionalConstraints(doc, rule, object.getConstraints().get(i).getNode());
 		}
 
@@ -349,6 +350,21 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 			fnod.appendChild(descr);
 		}
 	}
+	
+	protected void addDescription(Document doc, IConstraint constraint, Element fnod) {
+		final String description =
+			constraint.getDescription(); //TODO Team1 Story1
+//		if ((description != null) 
+//			&& !description.trim().isEmpty()) {
+			final Element descr =
+				doc.createElement(DESCRIPTION);
+//			descr.setTextContent("\n"
+//				+ description.replace("\r", "")
+//				+ "\n");
+			descr.setTextContent("Das ist ein Test");
+			fnod.appendChild(descr);
+		//}
+	}
 
 	private void createXmlPropertiesPart(Document doc, Element propertiesNode, IFeatureModel featureModel) {
 
@@ -469,6 +485,29 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 							0; i < nodeMap.getLength(); i++) {
 							final org.w3c.dom.Node node =
 								nodeMap.item(i);
+							
+							//Story1
+							if (nodeName.equals(DESCRIPTION)) {
+								/* case: description */
+								String nodeValue =
+									e.getFirstChild().getNodeValue();
+								if ((nodeValue != null)
+									&& !nodeValue.isEmpty()) {
+									nodeValue =
+										nodeValue.replace("\t", "");
+									nodeValue =
+										nodeValue.substring(1, nodeValue.length()
+											- 1);
+									nodeValue =
+										nodeValue.trim();
+								}
+								
+								c.setDescription(nodeValue);
+								continue;
+							}
+							
+							//Story1
+							
 							final String attributeName =
 								node.getNodeName();
 							if (attributeName.equals(COORDINATES)) {
@@ -511,6 +550,11 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 				nodes.add(new Not((parseConstraints2(e.getChildNodes())).getFirst()));
 			} else if (nodeName.equals(ATMOST1)) {
 				nodes.add(new AtMost(1, parseConstraints2(e.getChildNodes())));
+			}
+				
+			else if (nodeName.equals(DESCRIPTION)) {
+		
+				
 			} else if (nodeName.equals(VAR)) {
 				final String featureName =
 					e.getTextContent();

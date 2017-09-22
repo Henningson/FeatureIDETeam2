@@ -45,6 +45,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
 import de.ovgu.featureide.fm.core.base.FeatureUtils;
+import de.ovgu.featureide.fm.core.base.IConstraint;
 import de.ovgu.featureide.fm.core.base.IFeature;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.base.IPropertyContainer.Entry;
@@ -115,6 +116,8 @@ public class XmlFeatureModelWriter extends AbstractXMLFeatureModelWriter<IFeatur
 			// }
 
 			constraints.appendChild(rule);
+
+			//createXmlConstraintDescription(doc, object.getConstraints().get(i), rule);
 			createPropositionalConstraints(doc, rule, object.getConstraints().get(i).getNode());
 		}
 
@@ -158,6 +161,18 @@ public class XmlFeatureModelWriter extends AbstractXMLFeatureModelWriter<IFeatur
 				order.appendChild(feature);
 			}
 		}
+	}
+	
+	protected void createXmlConstraintDescription(Document doc, IConstraint constraint, Element parentRule) {
+		String desc = constraint.getDescription();
+		
+		final Element descr =
+				doc.createElement(DESCRIPTION);
+//			descr.setTextContent("\n"
+//				+ desc.replace("\r", "")
+//				+ "\n");
+		descr.setTextContent("Das ist ein Test");
+			parentRule.appendChild(descr);
 	}
 
 	private void createXmlPropertiesPart(Document doc, Element propertiesNode, IFeatureModel featureModel) {
@@ -297,7 +312,7 @@ public class XmlFeatureModelWriter extends AbstractXMLFeatureModelWriter<IFeatur
 		if (node == null) {
 			return;
 		}
-
+		
 		Element op;
 		if (node instanceof Literal) {
 			Literal literal =

@@ -26,6 +26,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import javax.annotation.Nonnull;
+
 import org.prop4j.Node;
 import org.prop4j.SatSolver;
 
@@ -62,6 +64,8 @@ public abstract class AConstraint extends AFeatureModelElement implements IConst
 	protected Node propNode;
 	boolean featureSelected;
 	boolean isImplicit;
+
+	protected String description;
 
 	protected AConstraint(AConstraint oldConstraint, IFeatureModel featureModel) {
 		super(oldConstraint, featureModel);
@@ -209,6 +213,19 @@ public abstract class AConstraint extends AFeatureModelElement implements IConst
 		return "AConstraint [propNode="
 			+ propNode
 			+ "]";
+	}
+	
+	public void setDescription(@Nonnull final CharSequence description) {
+		this.description =
+				description.toString();
+	}
+	
+	/**
+	 * Returns the description
+	 * @return
+	 */
+	public String getDescription() {
+		return description;
 	}
 
 }
