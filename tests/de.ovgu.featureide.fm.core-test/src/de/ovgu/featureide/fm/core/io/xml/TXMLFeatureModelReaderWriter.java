@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import org.junit.Test;
 
 import de.ovgu.featureide.common.Commons;
+import de.ovgu.featureide.fm.core.base.IConstraint;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.io.UnsupportedModelException;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeature;
@@ -99,6 +100,42 @@ public class TXMLFeatureModelReaderWriter {
 		// fmNotCollapsed.getFeature(origF.getName()).getStructure().isCollapsed());
 		// }
 		// }
+	}
+	
+	@Test
+	public void testConstraintDescription() throws FileNotFoundException, UnsupportedModelException {
+		String constraindescriptionFromXml = "";
+		
+		final IFeatureModel fm =
+			Commons.loadFeatureModelFromFile("constraintDescriptionTest.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+					Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
+		
+
+		assertEquals(1, fm.getConstraints().size());
+		
+		for (IConstraint constraint : fm.getConstraints()) {	
+			constraindescriptionFromXml = constraint.getDescription();
+			assertEquals(constraindescriptionFromXml, "Test Description");
+
+		}
+	}
+	
+	@Test
+	public void testConstraintDescriptionTwoRules() throws FileNotFoundException, UnsupportedModelException {
+		String constraindescriptionFromXml = "";
+		
+		final IFeatureModel fm =
+			Commons.loadFeatureModelFromFile("constraintDescriptionTwoRulesTest.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+					Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
+		
+
+		assertEquals(2, fm.getConstraints().size());
+		
+		for (IConstraint constraint : fm.getConstraints()) {	
+			constraindescriptionFromXml = constraint.getDescription();
+			assertEquals(constraindescriptionFromXml, "Test Description");
+
+		}
 	}
 
 }
