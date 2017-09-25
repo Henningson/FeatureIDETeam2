@@ -353,18 +353,19 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 	}
 	
 	protected void addDescription(Document doc, IConstraint constraint, Element fnod) {
+		// Team1 Story1
 		final String description =
-			constraint.getDescription(); //TODO Team1 Story1
-//		if ((description != null) 
-//			&& !description.trim().isEmpty()) {
+			constraint.getDescription(); 
+		if ((description != null) 
+			&& !description.trim().isEmpty()) {
 			final Element descr =
 				doc.createElement(DESCRIPTION);
-//			descr.setTextContent("\n"
-//				+ description.replace("\r", "")
-//				+ "\n");
-			descr.setTextContent("Das ist ein Test");
+			descr.setTextContent("\n"
+				+ description.replace("\r", "")
+				+ "\n");
+
 			fnod.appendChild(descr);
-		//}
+		}
 	}
 
 	private void createXmlPropertiesPart(Document doc, Element propertiesNode, IFeatureModel featureModel) {

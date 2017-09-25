@@ -272,6 +272,7 @@ public abstract class TAbstractFeatureModelReaderWriter {
 	}
 
 	private final IFeatureModel writeAndReadModel() throws UnsupportedModelException {
+
 		IFeatureModel newFm =
 			null;
 		try {
