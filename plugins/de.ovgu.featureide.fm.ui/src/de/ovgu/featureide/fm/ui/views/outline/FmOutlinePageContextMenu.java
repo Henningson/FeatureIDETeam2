@@ -365,7 +365,7 @@ public class FmOutlinePageContextMenu {
 
 			clAction.setText(CREATE_FEATURE_BELOW);
 			manager.add(clAction);
-
+			manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 			if (reAction != null) {
 				reAction.setChecked(false);
 				reAction.setText(RENAME);
@@ -384,12 +384,14 @@ public class FmOutlinePageContextMenu {
 				|| andAction.isEnabled()) {
 				manager.add(andAction);
 				manager.add(oAction);
+				manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 				manager.add(altAction);
 				manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 			}
 
 			manager.add(mAction);
 			manager.add(aAction);
+			manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 			manager.add(hAction);
 			manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 			// TODO _interfaces Removed Code
@@ -401,6 +403,7 @@ public class FmOutlinePageContextMenu {
 
 			dAction.setText(DELETE);
 			manager.add(dAction);
+			manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		}
 		if (sel instanceof String) {
 			if (sel.equals(CONSTRAINTS)) {

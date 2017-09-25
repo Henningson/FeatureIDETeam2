@@ -81,7 +81,6 @@ public class DeleteAllAction extends SingleSelectionAction {
 	protected void updateProperties() {
 		setEnabled(!feature.getStructure().isRoot()
 			&& feature.getStructure().hasChildren());
-		setChecked(false);
 	}
 
 }

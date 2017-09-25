@@ -143,7 +143,6 @@ public abstract class SingleSelectionAction extends Action implements IEventList
 			feature =
 				null;
 			setEnabled(false);
-			setChecked(false);
 		}
 	}
 

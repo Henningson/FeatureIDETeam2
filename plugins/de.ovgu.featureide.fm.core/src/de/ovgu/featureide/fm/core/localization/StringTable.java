@@ -869,9 +869,11 @@ public class StringTable {
 	public static final String CREATE_FEATURE_ABOVE =
 		"Create Feature Above";
 	public static final String CALCULATE_DEPENDENCY =
-		"Show Hidden Dependencies of Submodel";
+		"Show Hidden Dependencies Of Submodel";
 	public static final String CREATE_CONSTRAINT =
 		"Create Constraint";
+	public static final String STARTING_WITH =
+		"Starting With";
 	public static final String EXPAND_CONSTRAINT =
 		"Show contained features";
 	public static final String DELETE_INCLUDING_SUBFEATURES =
@@ -2049,7 +2051,7 @@ public class StringTable {
 	public static final String SET_FEATURE_EXPANDED =
 		"Set Feature Expanded";
 	public static final String COLLAPSE_SIBLINGS =
-		"Collapse siblings";
+		"Collapse Siblings";
 	public static final String ADJUST_MODEL_TO_EDITOR =
 		"Adjust model to editor size";
 	public static final String CALCULATE_VOID_FEATURES =
