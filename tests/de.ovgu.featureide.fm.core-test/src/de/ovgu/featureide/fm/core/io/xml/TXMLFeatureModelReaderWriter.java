@@ -236,17 +236,22 @@ public class TXMLFeatureModelReaderWriter extends TAbstractFeatureModelReaderWri
 
 	@Test
 	public final void writeAndReadModel() throws UnsupportedModelException {
+		String featureModelFile =
+			"constraintDescriptionWriteReadTest.xml";
 		Path fmPath =
-			Paths.get("bin/"+Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH
-					+"/constraintDescriptionTest123.xml");
+			Paths.get("bin/"
+				+ Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH
+				+ "/"
+				+ featureModelFile);
 
 		IFeatureModel newFm =
 			this.prepareFeatureModel();
-		if (FeatureModelManager.save(newFm, fmPath) == true) {
+		boolean	result = FeatureModelManager.save(newFm, fmPath);
+		assertEquals(true, result);
 
-		}
+		
 		final IFeatureModel loadedFm =
-			Commons.loadFeatureModelFromFile("constraintDescriptionTest123.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+			Commons.loadFeatureModelFromFile(featureModelFile, Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
 					Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
 
 		assertEquals(2, loadedFm.getConstraints().size());
