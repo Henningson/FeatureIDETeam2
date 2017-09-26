@@ -866,6 +866,8 @@ public class StringTable {
 		"Change Description";
 	public static final String FEATURE_DESCRIPTION =
 		"Feature Description";
+	public static final String CONSTRAINT_DESCRIPTION =
+			"Constraint Description";
 	public static final String CREATE_FEATURE_ABOVE =
 		"Create Feature Above";
 	public static final String CALCULATE_DEPENDENCY =
@@ -1920,6 +1922,8 @@ public class StringTable {
 		" does not exist.";
 	public static final String PLEASE_ENTER_A_DESCRIPTION_FOR_FEATURE_ =
 		"Please enter a description for feature '";
+	public static final String PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_ =
+			"Please enter a description for constraint '";
 	public static final String NOT_FOUND =
 		"not found";
 	public static final String REMOVED_PRODUCTS =
