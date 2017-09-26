@@ -115,6 +115,7 @@ import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.AlternativeAction;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.AndAction;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.AutoLayoutConstraintAction;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.CalculateDependencyAction;
+import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.ChangeConstraintDescriptionAction;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.ChangeFeatureDescriptionAction;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.CollapseAction;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.actions.CollapseAllAction;
@@ -201,6 +202,7 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 	private AlternativeAction alternativeAction;
 	private RenameAction renameAction;
 	private ChangeFeatureDescriptionAction changeFeatureDescriptionAction;
+	private ChangeConstraintDescriptionAction changeConstraintDescriptionAction;
 
 	private MoveAction moveStopAction;
 	private MoveAction moveUpAction;
@@ -498,6 +500,7 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 		expandAllAction.setImageDescriptor(FmOutlinePageContextMenu.IMG_EXPAND); // icon for expand added
 		abstractAction = new AbstractAction(this, featureModel, (ObjectUndoContext) featureModel.getUndoContext());
 		changeFeatureDescriptionAction = new ChangeFeatureDescriptionAction(this, featureModel, null);
+    changeConstraintDescriptionAction =	new ChangeConstraintDescriptionAction(this, featureModel, null);
 		andAction = new AndAction(this, featureModel);
 		orAction = new OrAction(this, featureModel);
 		alternativeAction = new AlternativeAction(this, featureModel);
@@ -673,6 +676,7 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 				menu.add(collapseAllButExplanationAction);
 			}
 			menu.add(changeFeatureDescriptionAction);
+			menu.add(changeConstraintDescriptionAction);
 			menu.add(new Separator());
 			menu.add(subMenuLayout);
 			menu.add(subMenuCalculations);
