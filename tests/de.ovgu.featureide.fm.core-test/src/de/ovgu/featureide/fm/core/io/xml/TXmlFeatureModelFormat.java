@@ -45,18 +45,25 @@ import de.ovgu.featureide.fm.ui.editors.IGraphicalFeatureModel;
 import de.ovgu.featureide.fm.ui.editors.elements.GraphicalFeatureModel;
 
 /**
- * Class to test the collapse feature of XmlFeatureModelFormat.java
+ * test class for XmlReader/Writer
  *
+ * @author Fabian Benduhn
+ * @author Dawid Szczepanski
+ * @author Marlen Bernier
  * @author Christopher Sontag
  * @author Maximilian Kühl
  */
+public class TXmlFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 
-public class TXMLFeatureModelReaderWriter extends TAbstractFeatureModelReaderWriter {
-
-	public TXMLFeatureModelReaderWriter(IFeatureModel fm, String s) throws UnsupportedModelException {
+	/**
+	 * @param file
+	 * @throws UnsupportedModelException
+	 */
+	public TXmlFeatureModelFormat(IFeatureModel fm, String s) throws UnsupportedModelException {
 		super(fm, s);
+		
 	}
-
+	
 	@Test
 	public void testFeatureCollapsed() throws FileNotFoundException, UnsupportedModelException {
 
@@ -105,17 +112,6 @@ public class TXMLFeatureModelReaderWriter extends TAbstractFeatureModelReaderWri
 			+ notVisible);
 
 		assertEquals(gFM.getVisibleFeatures().size(), gfmNotCollapsed.getVisibleFeatures().size());
-		//
-		// for (IFeature origF : fmOrig.getFeatures()) {
-		// IFeature newF = fmNotCollapsed.getFeature(origF.getName());
-		//
-		// if (newF == null) {
-		// fail();
-		// } else {
-		// assertEquals("Feature: " + origF.getName(), origF.getStructure().isCollapsed(),
-		// fmNotCollapsed.getFeature(origF.getName()).getStructure().isCollapsed());
-		// }
-		// }
 	}
 
 	@Test
@@ -271,11 +267,11 @@ public class TXMLFeatureModelReaderWriter extends TAbstractFeatureModelReaderWri
 	}
 
 	/*
-	 * (non-Javadoc)
 	 * @see de.ovgu.featureide.fm.core.io.TAbstractFeatureModelReaderWriter#getFormat()
 	 */
 	@Override
 	protected IFeatureModelFormat getFormat() {
 		return new XmlFeatureModelFormat();
 	}
+	
 }

@@ -18,13 +18,14 @@
 				</conj>
 			</rule>
 			<rule>
-			<description>
-				Test Description
-			</description>
+			
 				<imp>
 					<var>A</var>
 					<var>B</var>
 				</imp>
+			<description>
+				Test Description
+			</description>
 			</rule>
 		</constraints>
 		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
