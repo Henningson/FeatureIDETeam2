@@ -673,6 +673,7 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 			menu.add(mandatoryAction);
 			menu.add(abstractAction);
 			menu.add(hiddenAction);
+			menu.add(colorSelectedFeatureAction);
 			menu.add(new Separator());
 			menu.add(collapseAction);
 			menu.add(collapseFeaturesAction);
@@ -713,6 +714,8 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 			menu.add(new Separator());
 			menu.add(collapseAllAction);
 			menu.add(expandAllAction);
+			menu.add(showHiddenFeaturesAction);
+			menu.add(showCollapsedConstraintsAction);
 			menu.add(adjustModelToEditorSizeAction);
 			menu.add(new Separator());
 			menu.add(subMenuLayout);
@@ -723,24 +726,9 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 
 			// if there are hidden features and nothing is selected
 			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-			menu.add(showHiddenFeaturesAction);
-			menu.add(showCollapsedConstraintsAction);
-			menu.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 			menu.add(exportFeatureModelAction);
 		}
-
-		boolean isEmpty = true;
-		for (final Object obj : ((StructuredSelection) getSelection()).toArray()) {
-			if ((obj instanceof FeatureEditPart) || (obj instanceof IFeature)) {
-				isEmpty = false;
-			}
-		}
-		// if there is a feature selected, add feature color
-		if (!isEmpty) {
-			menu.add(new Separator());
-			menu.add(colorSelectedFeatureAction);
-		}
-
+		
 		// call of the FeatureDiagramExtensions (for features only)
 		if ((createLayerAction.isEnabled() || createCompoundAction.isEnabled()) && !connectionSelected) {
 			for (final FeatureDiagramExtension extension : FeatureDiagramExtension.getExtensions()) {
