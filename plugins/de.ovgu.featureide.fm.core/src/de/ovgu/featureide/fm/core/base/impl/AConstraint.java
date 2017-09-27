@@ -68,6 +68,7 @@ public abstract class AConstraint extends AFeatureModelElement implements IConst
 		propNode = oldConstraint.propNode;
 		featureSelected = oldConstraint.featureSelected;
 		isImplicit = oldConstraint.isImplicit;
+		description = oldConstraint.description;
 	}
 
 	public AConstraint(IFeatureModel featureModel, Node propNode) {
@@ -75,6 +76,7 @@ public abstract class AConstraint extends AFeatureModelElement implements IConst
 		this.propNode = propNode;
 		featureSelected = false;
 		isImplicit = false;
+		description = "";
 	}
 
 	@Override

@@ -10,7 +10,7 @@
 		<constraints>
 			<rule>
 			<description>
-				Test Description
+				Test Description 1
 			</description>
 				<conj>
 					<var>A</var>
@@ -24,7 +24,7 @@
 					<var>B</var>
 				</imp>
 			<description>
-				Test Description
+				Test Description 2
 			</description>
 			</rule>
 		</constraints>

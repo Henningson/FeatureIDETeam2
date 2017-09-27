@@ -61,9 +61,9 @@ public class TXmlFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 	 */
 	public TXmlFeatureModelFormat(IFeatureModel fm, String s) throws UnsupportedModelException {
 		super(fm, s);
-		
+
 	}
-	
+
 	@Test
 	public void testFeatureCollapsed() throws FileNotFoundException, UnsupportedModelException {
 		final IFeatureModel fmOrig = Commons.loadFeatureModelFromFile("basic.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
@@ -107,62 +107,50 @@ public class TXmlFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 
 	@Test
 	public void testConstraintDescription() throws FileNotFoundException, UnsupportedModelException {
-		String constraindescriptionFromXml =
-			"";
+		String constraintdescriptionFromXml = "";
 
-		final IFeatureModel fm =
-			Commons.loadFeatureModelFromFile("constraintDescriptionTest.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
-					Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
+		final IFeatureModel fm = Commons.loadFeatureModelFromFile("constraintDescriptionTest.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+				Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
 
 		assertEquals(1, fm.getConstraints().size());
 
 		for (IConstraint constraint : fm.getConstraints()) {
-			constraindescriptionFromXml =
-				constraint.getDescription();
-			assertEquals(constraindescriptionFromXml, "Test Description");
+			constraintdescriptionFromXml = constraint.getDescription();
+			assertEquals(constraintdescriptionFromXml, "Test Description");
 
 		}
 	}
 
 	@Test
 	public void testConstraintDescriptionTwoRules() throws FileNotFoundException, UnsupportedModelException {
-		String constraindescriptionFromXml =
-			"";
+		String constraintdescriptionFromXml = "";
 
-		final IFeatureModel fm =
-			Commons.loadFeatureModelFromFile("constraintDescriptionTwoRulesTest.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
-					Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
+		final IFeatureModel fm = Commons.loadFeatureModelFromFile("constraintDescriptionTwoRulesTest.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+				Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
 
 		assertEquals(2, fm.getConstraints().size());
-
+		int i = 1;
 		for (IConstraint constraint : fm.getConstraints()) {
-			constraindescriptionFromXml =
-				constraint.getDescription();
-			assertEquals(constraindescriptionFromXml, "Test Description");
+			constraintdescriptionFromXml = constraint.getDescription();
+			assertEquals(constraintdescriptionFromXml, "Test Description " + i);
+			i++;
 
 		}
 	}
 
 	private IFeatureModel prepareFeatureModel() {
-		final IFeatureModelFactory factory =
-			FMFactoryManager.getDefaultFactory();
+		final IFeatureModelFactory factory = FMFactoryManager.getDefaultFactory();
 
 		// setup a test model
-		newFm =
-			factory.createFeatureModel();
-		final IFeature root =
-			factory.createFeature(newFm, "root");
+		newFm = factory.createFeatureModel();
+		final IFeature root = factory.createFeature(newFm, "root");
 
 		newFm.addFeature(root);
 		newFm.getStructure().setRoot(root.getStructure());
 
-		final IFeature A =
-			factory.createFeature(newFm, "A");
-		final IFeature B =
-			factory.createFeature(newFm, "B");
-		final IFeature C =
-			factory.createFeature(newFm, "C");
-		// IFeature D = factory.createFeature(newFm, "D");
+		final IFeature A = factory.createFeature(newFm, "A");
+		final IFeature B = factory.createFeature(newFm, "B");
+		final IFeature C = factory.createFeature(newFm, "C");
 
 		A.getStructure().setMandatory(false);
 		B.getStructure().setMandatory(false);
@@ -171,90 +159,78 @@ public class TXmlFeatureModelFormat extends TAbstractFeatureModelReaderWriter {
 		A.getStructure().setAbstract(false);
 		B.getStructure().setAbstract(false);
 		C.getStructure().setAbstract(false);
-		// D.getStructure().setMandatory(false);
 
 		newFm.getStructure().getRoot().addChild(A.getStructure());
 		newFm.getStructure().getRoot().addChild(B.getStructure());
 		newFm.getStructure().getRoot().addChild(C.getStructure());
-		// newFm.getStructure().getRoot().addChild(D.getStructure());
 		newFm.getStructure().getRoot().setAnd();
 
-		final Node n1 =
-			new Or(A, B);
-		final Node n2 =
-			new Or(B, C);
-		// Node n3 = new Implies(new And(new Or(A,B), D), new Not(C));
+		final Node n1 = new Or(A, B);
+		final Node n2 = new Or(B, C);
 
-		final IConstraint c1 =
-			factory.createConstraint(newFm, n1);
+		final IConstraint c1 = factory.createConstraint(newFm, n1);
 		c1.setDescription("Test Write Description 1");
 
-		final IConstraint c2 =
-			factory.createConstraint(newFm, n2);
+		final IConstraint c2 = factory.createConstraint(newFm, n2);
 		c2.setDescription("Test Write Description 2");
-		// IConstraint c3 = factory.createConstraint(newFm, n3);
 		newFm.addConstraint(c1);
 		newFm.addConstraint(c2);
-		// newFm.addConstraint(c3);
-
+		
 		return newFm;
 	}
 
-	
 	@Test
 	public void testConstraintDescriptionWrite() throws FileNotFoundException, UnsupportedModelException {
-		IFeatureModel newFm =
-			this.prepareFeatureModel();
+		IFeatureModel newFm = this.prepareFeatureModel();
 
-		String constraindescriptionFromXml =
-			"";
-		int i =
-			1;
+		String constraintdescriptionFromXml = "";
+		int i = 1;
 		for (IConstraint constraint : newFm.getConstraints()) {
-			constraindescriptionFromXml =
-				constraint.getDescription();
-			assertEquals(constraindescriptionFromXml, "Test Write Description "
-				+ i);
+			constraintdescriptionFromXml = constraint.getDescription();
+			assertEquals(constraintdescriptionFromXml, "Test Write Description " + i);
 			i++;
 
 		}
 	}
 
-
 	@Test
 	public final void writeAndReadModel() throws UnsupportedModelException {
-		String featureModelFile =
-			"constraintDescriptionWriteReadTest.xml";
-		Path fmPath =
-			Paths.get("bin/"
-				+ Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH
-				+ "/"
-				+ featureModelFile);
+		String featureModelFile = "constraintDescriptionWriteReadTest.xml";
+		Path fmPath = Paths.get("bin/" + Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH + "/" + featureModelFile);
 
-		IFeatureModel newFm =
-			this.prepareFeatureModel();
-		boolean	result = FeatureModelManager.save(newFm, fmPath);
+		IFeatureModel newFm = this.prepareFeatureModel();
+		boolean result = FeatureModelManager.save(newFm, fmPath);
 		assertEquals(true, result);
 
-		
-		final IFeatureModel loadedFm =
-			Commons.loadFeatureModelFromFile(featureModelFile, Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
-					Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
+		final IFeatureModel loadedFm = Commons.loadFeatureModelFromFile(featureModelFile, Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+				Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
 
 		assertEquals(2, loadedFm.getConstraints().size());
-		String constraindescriptionFromXml =
-			"";
-		int i =
-			1;
+		String constraintdescriptionFromXml = "";
+		int i = 1;
 		for (IConstraint constraint : loadedFm.getConstraints()) {
-			constraindescriptionFromXml =
-				constraint.getDescription();
-			assertEquals(constraindescriptionFromXml, "Test Write Description "
-				+ i);
+			constraintdescriptionFromXml = constraint.getDescription();
+			assertEquals(constraintdescriptionFromXml, "Test Write Description " + i);
 			i++;
 
 		}
 
+	}
+	
+	@Test
+	public void testConstraintWithoutDescription() throws FileNotFoundException, UnsupportedModelException {
+		String constraintdescriptionFromXml = "";
+
+		final IFeatureModel fm = Commons.loadFeatureModelFromFile("basic.xml", Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_REMOTE,
+				Commons.FEATURE_MODEL_TESTFEATUREMODELS_PATH_LOCAL_CLASS_PATH);
+
+		assertEquals(1, fm.getConstraints().size());
+
+		for (IConstraint constraint : fm.getConstraints()) {
+			constraintdescriptionFromXml = constraint.getDescription();
+			assertEquals(constraintdescriptionFromXml, "");
+
+		}
 	}
 
 	/*
