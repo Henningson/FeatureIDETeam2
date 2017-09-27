@@ -21,8 +21,8 @@
 package de.ovgu.featureide.fm.ui.editors.featuremodel.actions;
 
 import static de.ovgu.featureide.fm.core.localization.StringTable.CHANGE_DESCRIPTION;
-import static de.ovgu.featureide.fm.core.localization.StringTable.FEATURE_DESCRIPTION;
-import static de.ovgu.featureide.fm.core.localization.StringTable.PLEASE_ENTER_A_DESCRIPTION_FOR_FEATURE_;
+import static de.ovgu.featureide.fm.core.localization.StringTable.CONSTRAINT_DESCRIPTION;
+import static de.ovgu.featureide.fm.core.localization.StringTable.PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_;
 
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.base.event.FeatureIDEEvent;
@@ -34,32 +34,41 @@ import de.ovgu.featureide.fm.ui.editors.ChangeFeatureDescriptionDialog;
  *
  * @author Marcus Pinnecke (Feature Interface)
  */
-public class ChangeFeatureDescriptionAction extends SingleSelectionAction {
+public class ChangeConstraintDescriptionAction extends SingleSelectionAction {
 
-	public ChangeFeatureDescriptionAction(Object viewer, IFeatureModel featureModel, Object graphicalViewer) {
+	public ChangeConstraintDescriptionAction(Object viewer, IFeatureModel featureModel, Object graphicalViewer) {
 		super(CHANGE_DESCRIPTION, viewer);
 	}
 
 	@Override
 	public void run() {
-		String description = "";
+		String description =
+			"";
 		if (feature.getProperty().getDescription() != null) {
-			description = feature.getProperty().getDescription();
-			description = description.trim();
+			description =
+				feature.getProperty().getDescription();
+			description =
+				description.trim();
 		}
+		//TODO Team1 Story2 rename dialog
 		final ChangeFeatureDescriptionDialog dialog =
-			new ChangeFeatureDescriptionDialog(null, FEATURE_DESCRIPTION, PLEASE_ENTER_A_DESCRIPTION_FOR_FEATURE_ + feature.getName() + "'", description);
+			new ChangeFeatureDescriptionDialog(null, CONSTRAINT_DESCRIPTION, PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_
+				+ feature.getName()
+				+ "'", description);
 		dialog.open();
-		final String descriptemp = dialog.getValue();
+		final String descriptemp =
+			dialog.getValue();
 
 		if (!description.equals(descriptemp.trim())) {
 			feature.getProperty().setDescription(descriptemp);
 			feature.getFeatureModel().fireEvent(new FeatureIDEEvent(feature, EventType.ATTRIBUTE_CHANGED));
 		}
+		setChecked(false);
 	}
 
 	@Override
 	protected void updateProperties() {
 		setEnabled(true);
+		setChecked(false);
 	}
 }

@@ -88,7 +88,7 @@ public interface SatProblem {
 	 * @param index index of the clause
 	 * @return the clause at the given index; not null
 	 * @ŧhrows IndexOutOfBoundsException if the index is out of range, that is negative or greater than or equal to the {@link #getClauseCount() amount of
-	 *          clauses}
+	 *         clauses}
 	 */
 	public Node getClause(int index) throws IndexOutOfBoundsException;
 

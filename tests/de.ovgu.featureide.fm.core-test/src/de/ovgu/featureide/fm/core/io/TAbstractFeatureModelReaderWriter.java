@@ -245,6 +245,7 @@ public abstract class TAbstractFeatureModelReaderWriter {
 
 	private final IFeatureModel writeAndReadModel() throws UnsupportedModelException {
 		IFeatureModel newFm = null;
+
 		try {
 			newFm = FMFactoryManager.getDefaultFactoryForPath(origFm.getFactoryID()).createFeatureModel();
 		} catch (final NoSuchExtensionException e) {
