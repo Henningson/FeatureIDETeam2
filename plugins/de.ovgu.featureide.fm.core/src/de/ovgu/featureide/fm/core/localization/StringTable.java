@@ -455,11 +455,11 @@ public class StringTable {
 	public static final String CALCULATE_TAUTOLOGY_CONSTRAINTS = "Calculate Tautology Constraints";
 	public static final String CHANGE_DESCRIPTION = "Change Description";
 	public static final String FEATURE_DESCRIPTION = "Feature Description";
-  public static final String CONSTRAINT_DESCRIPTION = "Constraint Description";
+	public static final String CONSTRAINT_DESCRIPTION = "Constraint Description";
 	public static final String CREATE_FEATURE_ABOVE = "Create Feature Above";
 	public static final String CALCULATE_DEPENDENCY = "Show Hidden Dependencies of Submodel";
 	public static final String CREATE_CONSTRAINT = "Create Constraint";
-  public static final String STARTING_WITH = "Starting With";
+	public static final String STARTING_WITH = "Starting With";
 	public static final String EXPAND_CONSTRAINT = "Show contained features";
 	public static final String DELETE_INCLUDING_SUBFEATURES = "Delete Including Subfeatures (CTRL + D)";
 	public static final String COLLAPSE_FEATURE = "Collapse (CTRL + C)";
@@ -474,171 +474,6 @@ public class StringTable {
 	public static final String SHOW_HIDDEN_FEATURES = "Show Hidden Features";
 	public static final String SHOW_COLLAPSED_CONSTRAINTS = "Show Collapsed Constraints";
 	public static final String RENAMING_FEATURE = "Renaming feature ";
-=======
-	public static final String YOUR_CONSTRAINT_VOIDS_THE_MODEL =
-		"The constraints makes the feature model void.";
-	public static final String REDUNDANCY_OCCURRED_INSIDE_YOUR_CONSTRAINT_ =
-		"The constraints is redundant and can be removed.";
-	public static final String YOUR_CONSTRAINT_IS_A_TAUTOLOGY_ =
-		"The constraint is a tautology and can be removed.";
-	public static final String YOUR_CONSTRAINT_IS_NOT_SATISFIABLE_ =
-		"The constraint is not satisfiable and makes the feature model void.";
-	public static final String CREATE_PROPOSITIONAL_CONSTRAINT =
-		"Create Propositional Constraint";
-	public static final String EDIT_PROPOSITIONAL_CONSTRAINT =
-		"Edit Propositional Constraint";
-	public static final String EDIT_YOUR_CONSTRAINT =
-		"Edit Constraint";
-	public static final String UPDATE =
-		"Update";
-	public static final String CREATE =
-		"Create";
-	public static final String SAVE_YOUR_CHANGES =
-		"save changes";
-	public static final String ADD_YOUR_NEW_CONSTRAINT =
-		"add new constraint";
-	public static final String SAVE =
-		"save";
-	public static final String CONSTRAINT_IS_EMPTY =
-		"constraint is empty";
-	public static final String CONSTRAINT_IS_UNSATISFIABLE =
-		"constraint is unsatisfiable";
-	public static final String PLEASE_INSERT_A_CONSTRAINT_ =
-		"Please insert a constraint.";
-	public static final String CHECKING_CONSTRAINT___ =
-		"Checking constraint...";
-	public static final String YOUR_INPUT_CONSTAINS_SYNTAX_ERRORS_ =
-		"Your input contains syntax errors.";
-	public static final String CONSTRAINT_CONTAINS_ONE_UNKNOWN_FEATURE_NAME_ =
-		"Constraint contains unknown feature name.";
-	public static final String TYPE_FILTER_TEXT =
-		"type filter text";
-	public static final String CONSTRAINT_DIALOG =
-		"Constraint Dialog";
-	public static final String VOIDS_MODEL =
-		"void feature model";
-	public static final String FALSE_OPTIONAL =
-		"false optional";
-	public static final String DEAD_FEATURES =
-		"dead features";
-	public static final String REDUNDANT_CHECK =
-		"redundant check";
-	public static final String SATISFIABLE_TEST =
-		"satisfiable test";
-	public static final String CANCEL =
-		"Cancel";
-	public static final String OPERATORS =
-		"Operators";
-	public static final String SAVE_ANYWAY =
-		"Save (Unchecked)";
-	public static final String DEAD_FEATURE =
-		"dead feature";
-	public static final String IS_SATISFIABLE =
-		"is satisfiable";
-	public static final String RUNNING_ADDITIONAL_CHECKS___ =
-		"Running additional checks...";
-	public static final String STARTING_UP___ =
-		"Starting up...";
-	public static final String UPDATING_RESULTS_TAUTOLOGY_CHECK___ =
-		"Updating results for tautology check...";
-	public static final String UPDATING_RESULTS_FOR_SATISFIABLE_CHECK___ =
-		"Updating results for satisfiable check...";
-	public static final String UPDATING_RESULTS_FOR_VOIDS_MODEL___ =
-		"Updating results for void feature model...";
-	public static final String UPDATING_RESULTS_FOR_FALSE_OPTIONAL_FEATURES___ =
-		"Updating results for false-optional features...";
-	public static final String UPDATING_RESULTS_FOR_DEAD_FEATURES___ =
-		"Updating results for dead features...";
-	public static final String UPDATING_RESULTS_FOR_REDUNDANCY___ =
-		"Updating results for redundant constraints...";
-	public static final String CHECKING_COMPLETE_ =
-		"Checking complete.";
-	public static final String FEATURE_DELETION_AND_REPLACEMENT_IN_CONSTRAINTS =
-		"Feature deletion and replacement in constraints";
-	public static final String CLOSE =
-		"Close";
-	public static final String ON_THE_RIGHT_HAND_SIDE_ =
-		"on the right hand side.";
-	public static final String FEATURES_SUPPOSED_TO_BE_DELETED =
-		"Features supposed to be deleted";
-	public static final String ALTERNATIVE_FEATURES =
-		"alternative features";
-	public static final String REPLACE =
-		"Replace";
-	public static final String FEATURE_DIAGRAM =
-		"Feature Diagram";
-	public static final String SET_CALCULATIONS =
-		"Set Calculations";
-	public static final String SET_LAYOUT =
-		"Set Layout";
-	public static final String SET_NAME_TYPE =
-		"Set Name Type";
-	public static final String AND =
-		"And";
-	public static final String OR =
-		"Or";
-	public static final String ALTERNATIVE =
-		"Alternative";
-	public static final String ANALYZE_FEATURE_MODEL =
-		"Analyze feature model";
-	public static final String UPDATING_FEATURE_MODEL_ATTRIBUTES =
-		"Updating feature model attributes";
-	public static final String AUTO_LAYOUT_CONSTRAINTS =
-		"Auto Layout Constraints";
-	public static final String AUTOMATED_CALCULATIONS =
-		"Automated Calculations";
-	public static final String CALCULATE_CONSTRAINT_ERRORS =
-		"Calculate Constraint Errors";
-	public static final String CALCULATE_DEAD_FO_CONSTRAINTS =
-		"Calculate Constraint That Lead to Dead or False-Optional Features";
-	public static final String CALCULATE_FEATURES =
-		"Calculate Features";
-	public static final String CALCULATE_REDUNDANT_CONSTRAINTS =
-		"Calculate Redundant Constraints";
-	public static final String RUN_MANUAL_CALCULATIONS =
-		"Run Manual Calculations";
-	public static final String CALCULATE_TAUTOLOGY_CONSTRAINTS =
-		"Calculate Tautology Constraints";
-	public static final String CHANGE_DESCRIPTION =
-		"Change Description";
-	public static final String FEATURE_DESCRIPTION =
-		"Feature Description";
-	public static final String CREATE_FEATURE_ABOVE =
-		"Create Feature Above";
-	public static final String CALCULATE_DEPENDENCY =
-		"Show Hidden Dependencies Of Submodel";
-	public static final String CREATE_CONSTRAINT =
-		"Create Constraint";
-	public static final String STARTING_WITH =
-		"Starting With";
-	public static final String EXPAND_CONSTRAINT =
-		"Show contained features";
-	public static final String DELETE_INCLUDING_SUBFEATURES =
-		"Delete Including Subfeatures (CTRL + D)";
-	public static final String COLLAPSE_FEATURE =
-		"Collapse (CTRL + C)";
-	public static final String EDIT_CONSTRAINT =
-		"Edit Constraint";
-	public static final String EXPORT_AS =
-		"Export As";
-	public static final String HIDE_LEGEND =
-		"Hide Legend";
-	public static final String SHOW_LEGEND =
-		"Show Legend";
-	public static final String AUTO_LAYOUT_LEGEND =
-		"Auto-Layout Legend";
-	public static final String MOVING =
-		"Moving";
-	public static final String REVERSE_FEATURE_ORDER =
-		"Reverse Feature Order";
-	public static final String SELECTION =
-		"Selection";
-	public static final String SHOW_HIDDEN_FEATURES =
-		"Show Hidden Features";
-	public static final String SHOW_COLLAPSED_CONSTRAINTS =
-		"Show Collapsed Constraints";
-	public static final String RENAMING_FEATURE =
-		"Renaming feature ";
 	public static final String IT_IS_NOT_RECOMMENDED_TO_CHANGE_UPPER_AND_LOWER_CASE__YOU_CURRENTLY_TRY_TO_RENAME =
 		"It is not recommended to change upper and lower case. You currently try to rename ";
 	public static final String THIS_NAME_IS_ALREADY_USED_FOR_ANOTHER_FEATURE_ = "This name is already used for another feature.";
@@ -1168,7 +1003,7 @@ public class StringTable {
 	public static final String INVALID_COMMA_ = "invalid, ";
 	public static final String DOES_NOT_EXIST_ = " does not exist.";
 	public static final String PLEASE_ENTER_A_DESCRIPTION_FOR_FEATURE_ = "Please enter a description for feature '";
-  public static final String PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_ = "Please enter a description for constraint '";
+	public static final String PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_ = "Please enter a description for constraint '";
 	public static final String NOT_FOUND = "not found";
 	public static final String REMOVED_PRODUCTS = "Removed products";
 	public static final String MINUS = "minus";
@@ -1242,7 +1077,6 @@ public class StringTable {
 	public static final String CURRENTLY_NO_COLOR_SCHEME_SELECTED = "No color scheme is selected";
 	public static final String CURRENTLY_NO_COLOR_SCHEME_SELECTED_DIALOG =
 		"There is currently no color scheme selected. To color features please use the color scheme wizard and select a color scheme.";
-
 	public static final String PUBLIC_CLASS = "public class";
 	public static final String PUBLIC_INTERFACE = "public interface";
 

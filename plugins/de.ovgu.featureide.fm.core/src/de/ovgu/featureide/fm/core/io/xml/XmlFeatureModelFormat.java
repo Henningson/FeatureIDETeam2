@@ -412,15 +412,10 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 				String description =
 					childOfRule.getTextContent();
 
-				if ((description != null)
-					&& !description.isEmpty()) {
-					description =
-						description.replace("\t", "");
-					description =
-						description.substring(1, description.length()
-							- 1);
-					description =
-						description.trim();
+				if ((description != null) && !description.isEmpty()) {
+					description = description.replace("\t", "");
+					description = description.substring(1, description.length() - 1);
+					description = description.trim();
 				}
 
 				constraint.setDescription(description);
@@ -482,12 +477,7 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 			} else if (nodeName.equals(NOT)) {
 				nodes.add(new Not((parseConstraints2(e.getChildNodes())).getFirst()));
 			} else if (nodeName.equals(ATMOST1)) {
-				nodes.add(new AtMost(1, parseConstraints2(e.getChildNodes())));
-			}
-				
-			else if (nodeName.equals(DESCRIPTION)) {
-		
-				
+				nodes.add(new AtMost(1, parseConstraints2(e.getChildNodes())));				
 			} else if (nodeName.equals(VAR)) {
 				final String featureName = e.getTextContent();
 				if (object.getFeature(featureName) != null) {
@@ -495,6 +485,8 @@ public class XmlFeatureModelFormat extends AXMLFormat<IFeatureModel> implements 
 				} else {
 					throwError("Feature \"" + featureName + "\" does not exists", e);
 				}
+			}				
+			else if (nodeName.equals(DESCRIPTION)) {	
 			} else {
 				throwError("Unknown constraint type: " + nodeName, e);
 			}

@@ -42,22 +42,16 @@ public class ChangeConstraintDescriptionAction extends SingleSelectionAction {
 
 	@Override
 	public void run() {
-		String description =
-			"";
+		String description = "";
 		if (feature.getProperty().getDescription() != null) {
-			description =
-				feature.getProperty().getDescription();
-			description =
-				description.trim();
+			description = feature.getProperty().getDescription();
+			description = description.trim();
 		}
-		//TODO Team1 Story2 rename dialog
+		// TODO Team1 Story2 rename dialog
 		final ChangeFeatureDescriptionDialog dialog =
-			new ChangeFeatureDescriptionDialog(null, CONSTRAINT_DESCRIPTION, PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_
-				+ feature.getName()
-				+ "'", description);
+			new ChangeFeatureDescriptionDialog(null, CONSTRAINT_DESCRIPTION, PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_ + feature.getName() + "'", description);
 		dialog.open();
-		final String descriptemp =
-			dialog.getValue();
+		final String descriptemp = dialog.getValue();
 
 		if (!description.equals(descriptemp.trim())) {
 			feature.getProperty().setDescription(descriptemp);
