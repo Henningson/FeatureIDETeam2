@@ -27,15 +27,19 @@ import static de.ovgu.featureide.fm.core.localization.StringTable.OPENING_FILE_F
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
+//import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -49,15 +53,19 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 
-import de.ovgu.featureide.core.CorePlugin;
-import de.ovgu.featureide.core.IFeatureProject;
+//import de.ovgu.featureide.core.CorePlugin;
+//import de.ovgu.featureide.core.IFeatureProject;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
+import de.ovgu.featureide.fm.core.io.manager.FeatureModelManager;
 import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
 import de.ovgu.featureide.fm.ui.handlers.base.SelectionWrapper;
 import de.ovgu.featureide.fm.ui.FMUIPlugin;
 
+
+
+import org.eclipse.core.resources.IProject;
 /**
  * This is a wizard for configuration files.
  *
@@ -93,8 +101,14 @@ public class NewConfigurationFileWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 		configFolder = page.getContainerObject();
-		final IFeatureProject featureProject = page.getFeatureProject();
-		final IFeatureModel featureModel = featureProject.getFeatureModel();
+		//final IFeatureProject featureProject = page.getFeatureProject();
+		final IProject featureProject = page.getFeatureProject();
+		
+		Path path = Paths.get("model.xml");
+		
+		final IFeatureModel featureModel = FeatureModelManager.load(path).getObject();
+		
+		//final IFeatureModel featureModel = featureProject.getFeatureModel();
 		final IConfigurationFormat format = page.getFormat();
 
 		final String suffix = "." + format.getSuffix();
@@ -137,7 +151,9 @@ public class NewConfigurationFileWizard extends Wizard implements INewWizard {
 			throwCoreException(CONTAINER_DOES_NOT_EXIST_);
 		}
 
-		final IFile file = container.getFile(new Path(fileName));
+		//final IFile file = container.getFile(new Path(fileName));
+		final IFile file = container.getFile((Paths.get(fileName)));
+		
 		SimpleFileHandler.save(Paths.get(file.getLocationURI()), new Configuration(featureModel), format);
 
 		monitor.worked(1);
@@ -167,7 +183,19 @@ public class NewConfigurationFileWizard extends Wizard implements INewWizard {
 	 */
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		final IFeatureProject data = CorePlugin.getFeatureProject(SelectionWrapper.init(selection, IResource.class).getNext());
-		configFolder = (data == null) ? null : data.getConfigFolder();
+		IResource chosenProject = SelectionWrapper.init(selection, IResource.class).getNext();
+		IProject data = chosenProject.getProject();
+		
+		//final IFeatureProject data = CorePlugin.getFeatureProject(SelectionWrapper.init(selection, IResource.class).getNext());
+		
+		configFolder = (data == null) ? null : data.getFolder(data.getLocation());
+		//configFolder = (data == null) ? null : data.getConfigFolder();
+		 IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		 IProject[] projects = workspaceRoot.getProjects();
+		 for (IProject iProject : projects) {
+			System.out.println("Project in workspace: " + iProject);
+		}
+		
+		
 	}
 }
