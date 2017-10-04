@@ -35,7 +35,7 @@ import de.ovgu.featureide.ui.UIPlugin;
 import de.ovgu.featureide.ui.statistics.ui.FeatureStatisticsView;
 import de.ovgu.featureide.ui.views.collaboration.CollaborationView;
 import de.ovgu.featureide.ui.views.configMap.ConfigurationMap;
-import de.ovgu.featureide.ui.wizards.NewConfigurationFileWizard;
+import de.ovgu.featureide.fm.ui.wizards.NewConfigurationFileWizard;
 import de.ovgu.featureide.ui.wizards.NewFeatureIDEFileWizard;
 import de.ovgu.featureide.ui.wizards.NewFeatureProjectWizard;
 

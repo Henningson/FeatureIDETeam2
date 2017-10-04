@@ -27,7 +27,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
-import de.ovgu.featureide.ui.wizards.NewConfigurationFileWizard;
+import de.ovgu.featureide.fm.ui.wizards.NewConfigurationFileWizard;
 
 /**
  * Starts the configuration file wizard for the selected configuration file at the context menu.
