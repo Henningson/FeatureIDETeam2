@@ -29,6 +29,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -37,6 +38,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 //import org.eclipse.core.runtime.Path;
@@ -152,7 +154,8 @@ public class NewConfigurationFileWizard extends Wizard implements INewWizard {
 		}
 
 		//final IFile file = container.getFile(new Path(fileName));
-		final IFile file = container.getFile((Paths.get(fileName)));
+		IPath ipath = new org.eclipse.core.runtime.Path(fileName);
+		final IFile file = container.getFile(ipath);
 		
 		SimpleFileHandler.save(Paths.get(file.getLocationURI()), new Configuration(featureModel), format);
 
