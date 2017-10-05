@@ -802,9 +802,9 @@
     </category>
     <wizard
           category="de.ovgu.featureide.fm.ui.category"
-          class="de.ovgu.featureide.fm.ui.wizards.NewConfigurationFileWizard"
+          class="de.ovgu.featureide.fm.ui.wizards.NewConfigurationWizard"
           icon="icons/NewConfigurationIcon.png"
-          id="de.ovgu.featureide.fm.ui.wizards.NewConfigurationFileWizard"
+          id="de.ovgu.featureide.fm.ui.wizards.NewConfigurationWizard"
           name="Configuration File"
           project="false">
     </wizard>
