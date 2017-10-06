@@ -25,24 +25,15 @@ import static de.ovgu.featureide.fm.core.localization.StringTable.NEW_FILE_WAS_N
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
-import de.ovgu.featureide.fm.core.base.IFeature;
-import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.base.IFeatureModelFactory;
-import de.ovgu.featureide.fm.core.base.impl.FMFactoryManager;
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
 import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
@@ -57,36 +48,38 @@ import de.ovgu.featureide.fm.ui.editors.configuration.ConfigurationEditor;
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-
-public class NewConfigurationWizard extends Wizard implements INewWizard {
+public class NewConfigurationWizard extends AbstractNewFileWizard<IConfigurationFormat> implements INewWizard {
 
 	public static final String ID = FMUIPlugin.PLUGIN_ID + ".wizard.NewConfigurationWizard";
 
-	private NewConfigurationFileLocationPage locationpage;
-	private NewConfigurationFileFormatPage formatPage;
 	private String configFolder;
+
+	public NewConfigurationWizard() {
+		setWindowTitle(NEW_CONFIGURATION);
+	}
 
 	@Override
 	public boolean performFinish() {
-		
 		this.initConfigFolder();
-		final IConfigurationFormat format = formatPage.getFormat();
+		final IConfigurationFormat format = ((NewConfigurationFileFormatPage) formatPage).getFormat();
 		final Path configPath = getNewFilePath(format);
-		IFile file = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(configPath.toUri())[0];	
-		
+
+		IFile file = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(configPath.toUri())[0];
+
 		try {
-			if(file.getProject().hasNature("de.ovgu.featureide.core.featureProjectNature")) {
+			if (file.getProject().hasNature("de.ovgu.featureide.core.featureProjectNature")) {
 				System.out.println("Ist Feature ID Project und hat funktioniert !!!");
 			}
 		} catch (CoreException e1) {
+			System.err.println("Exception!");
 		}
-		
+
+		// IConfigurationFormat format2 = (IConfigurationFormat)format;
 		SimpleFileHandler.save(configPath, new Configuration(defaultFeatureModel()), format);
 
 		assert (Files.exists(configPath)) : NEW_FILE_WAS_NOT_ADDED_TO_FILESYSTEM;
 		String fileName = locationpage.getFileName() + "." + format.getSuffix();
-		//IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName));
-		IFile modelFile =  ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
+		IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
 		try {
 			// open editor
 			FMUIPlugin.getDefault().openEditor(ConfigurationEditor.ID, modelFile);
@@ -96,9 +89,10 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
+	@Override
 	public Path getNewFilePath(IConfigurationFormat format) {
 		String fileName = locationpage.getFileName();
-		
+
 		if (!fileName.matches(".+\\." + Pattern.quote(format.getSuffix()))) {
 			fileName += "." + format.getSuffix();
 			fileName = configFolder + fileName;
@@ -120,32 +114,9 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 		}
 	}
 
-	private Path getFullPath(String fileName) {
-		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName)).getLocationURI());
-	}
-
-	private IFeatureModel defaultFeatureModel() {
-		final IFeatureModelFactory factory = FMFactoryManager.getDefaultFactory();
-		IFeatureModel newFm = factory.createFeatureModel();
-		final IFeature root = factory.createFeature(newFm, "root");
-
-		newFm.addFeature(root);
-		newFm.getStructure().setRoot(root.getStructure());
-
-		return newFm;
-	}
-
-	@Override
-	public void addPages() {
-		setWindowTitle(NEW_CONFIGURATION);
-		addPage(locationpage);
-		addPage(formatPage);
-	}
-
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		formatPage = new NewConfigurationFileFormatPage();
 		locationpage = new NewConfigurationFileLocationPage("location", selection);
 	}
-
 }

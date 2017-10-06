@@ -25,13 +25,11 @@ import static de.ovgu.featureide.fm.core.localization.StringTable.NEW_FILE_WAS_N
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
@@ -52,17 +50,17 @@ import de.ovgu.featureide.fm.ui.editors.FeatureModelEditor;
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-// TOOD add copy of an other model file
-public class NewFeatureModelWizard extends Wizard implements INewWizard {
+public class NewFeatureModelWizard extends AbstractNewFileWizard<IFeatureModelFormat> implements INewWizard {
 
 	public static final String ID = FMUIPlugin.PLUGIN_ID + ".wizard.NewFeatureModelWizard";
 
-	private NewFeatureModelFileLocationPage locationpage;
-	private NewFeatureModelFileFormatPage formatPage;
+	public NewFeatureModelWizard() {
+		setWindowTitle(NEW_FEATURE_MODEL);
+	}
 
 	@Override
 	public boolean performFinish() {
-		final IFeatureModelFormat format = formatPage.getFormat();
+		final IFeatureModelFormat format = ((NewFeatureModelFileFormatPage) formatPage).getFormat();
 		final Path fmPath = getNewFilePath(format);
 		IFeatureModel featureModel;
 		try {
@@ -86,19 +84,13 @@ public class NewFeatureModelWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
+	@Override
 	public Path getNewFilePath(IFeatureModelFormat format) {
 		String fileName = locationpage.getFileName();
 		if (!fileName.matches(".+\\." + Pattern.quote(format.getSuffix()))) {
 			fileName += "." + format.getSuffix();
 		}
-		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName)).getLocationURI());
-	}
-
-	@Override
-	public void addPages() {
-		setWindowTitle(NEW_FEATURE_MODEL);
-		addPage(locationpage);
-		addPage(formatPage);
+		return getFullPath(fileName);
 	}
 
 	@Override
@@ -106,5 +98,4 @@ public class NewFeatureModelWizard extends Wizard implements INewWizard {
 		formatPage = new NewFeatureModelFileFormatPage();
 		locationpage = new NewFeatureModelFileLocationPage("location", selection);
 	}
-
 }
