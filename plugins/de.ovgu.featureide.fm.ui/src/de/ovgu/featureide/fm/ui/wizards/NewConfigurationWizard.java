@@ -29,7 +29,11 @@ import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -67,15 +71,19 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 		
 		this.initConfigFolder();
 		final IConfigurationFormat format = formatPage.getFormat();
-
 		final Path configPath = getNewFilePath(format);
+		IFile file = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(configPath.toUri())[0];	
+		
+		try {
+			if(file.getProject().hasNature("de.ovgu.featureide.core.featureProjectNature")) {
+				System.out.println("Ist Feature ID Project und hat funktioniert !!!");
+			}
+		} catch (CoreException e1) {
+		}
+		
 		SimpleFileHandler.save(configPath, new Configuration(defaultFeatureModel()), format);
 
 		assert (Files.exists(configPath)) : NEW_FILE_WAS_NOT_ADDED_TO_FILESYSTEM;
-		
-		IFile file = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(configPath.toUri())[0];
-		file.getProject().hasNature("HIERFIDENATURE");
-
 		String fileName = locationpage.getFileName() + "." + format.getSuffix();
 		//IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName));
 		IFile modelFile =  ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
