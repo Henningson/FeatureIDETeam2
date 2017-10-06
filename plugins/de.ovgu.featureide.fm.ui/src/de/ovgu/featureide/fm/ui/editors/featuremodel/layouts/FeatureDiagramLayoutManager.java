@@ -25,19 +25,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Color;
 
 import de.ovgu.featureide.fm.core.base.event.FeatureIDEEvent;
 import de.ovgu.featureide.fm.core.base.event.FeatureIDEEvent.EventType;
 import de.ovgu.featureide.fm.core.functional.Functional;
+import de.ovgu.featureide.fm.ui.editors.FeatureConnection;
 import de.ovgu.featureide.fm.ui.editors.FeatureDiagramEditor;
 import de.ovgu.featureide.fm.ui.editors.FeatureUIHelper;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalConstraint;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeature;
 import de.ovgu.featureide.fm.ui.editors.IGraphicalFeatureModel;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.editparts.LegendEditPart;
+import de.ovgu.featureide.fm.ui.editors.featuremodel.figures.Draw2dHelper;
 import de.ovgu.featureide.fm.ui.editors.featuremodel.figures.LegendFigure;
 import de.ovgu.featureide.fm.ui.properties.FMPropertyManager;
 
@@ -77,6 +81,8 @@ abstract public class FeatureDiagramLayoutManager {
 
 		if (!featureModel.isLegendHidden() && featureModel.getLayout().hasLegendAutoLayout()) {
 			layoutLegend(featureModel, showHidden);
+		} else {
+			intersectionTest(featureModel);
 		}
 		newLocations.clear();
 	}
@@ -101,7 +107,91 @@ abstract public class FeatureDiagramLayoutManager {
 		controlWidth = width;
 		controlHeight = height;
 	}
+	
+	public void intersectionTest(IGraphicalFeatureModel featureModel) {	
+		final Iterable<IGraphicalFeature> nonHidden = featureModel.getVisibleFeatures();	
+		Dimension legendSize = null;
+		LegendFigure legendFigure = null;
+		// Find Legend Figure
+		for (final Object obj : editor.getEditPartRegistry().values()) {
+			if (obj instanceof LegendEditPart) {
+				legendFigure = ((LegendEditPart) obj).getFigure();
+				legendSize = legendFigure.getSize();
+			}
+		}
+		
+		if ((legendSize == null) && (legendFigure == null)) {
+			return;
+		}
+	
+		boolean hit = false;
+		
+		for (final IGraphicalFeature feature : nonHidden) {
+			//Check for intersections of the legend with the edges
+			List<FeatureConnection> targets = feature.getTargetConnections();
+			if (targets != null) {
+				for (int i = 0; i < targets.size(); i++) {
+					final Point source = targets.get(i).getSource().getLocation();
+					final Point target = targets.get(i).getTarget().getLocation();
+					if (checkIntersection(source, target, legendFigure.getLocation(), legendSize))
+						hit = true;
+				}	
+			}
+		}
 
+		/*
+		 * set the legend position
+		 */
+		if (hit) {
+			System.out.println("HIT");
+			System.out.println("Legend Position: " + legendFigure.getLocation().x + " " + legendFigure.getLocation().y);
+			System.out.println("Legend Size: " + legendSize.width + " " + legendSize.height);
+			legendFigure.setBackgroundColor(new Color(null, 255, 0, 0));
+		} else {
+			legendFigure.setBackgroundColor(new Color(null, 255, 255, 255));
+		}
+	}
+	
+	public boolean checkIntersection(Point source, Point target, Point legendPos, Dimension legendSize) {
+		int legendWidth = legendPos.x + legendSize.width;
+		int legendHeight = legendPos.y + legendSize.height;
+		
+		//Edge is definitely not inside the legend
+		if ((source.x < legendPos.x && target.x < legendPos.x) ||
+		    (source.y < legendPos.y && target.y < legendPos.y) ||
+		    (source.x > legendWidth && target.x > legendWidth) ||
+		    (source.y > legendHeight && target.y > legendHeight))
+			return false;
+		
+		//Check every side of the legend for an intersection
+		float m = (float)(target.y - source.y) / (float)(target.x - source.x);
+		float y = m * (float)(legendPos.x - source.x) + (float)source.y;
+		
+	    if (y >= legendPos.y && y <= legendHeight) {
+	    	System.out.println("Y-Hit at: " + y);
+	    	return true;
+	    }
+
+	    y = m * (float)(legendWidth - source.x) + (float)source.y;
+	    if (y >= legendPos.y && y <= legendHeight) {
+	    	System.out.println("Y-Hit at: " + y);
+	    	return true;
+	    }
+
+	    float x = (float)(legendPos.y - source.y) / m + (float)source.x;
+	    if (x >= legendPos.x && x <= legendWidth) {
+	    	System.out.println("X-Hit at: " + y);
+	    	return true;
+	    }
+
+	    x = (float)(legendHeight - source.y) / m + (float)source.x;
+	    if (x >= legendPos.x && x <= legendWidth) {
+	    	System.out.println("X-Hit at: " + y);
+	    	return true;
+	    }
+	    
+	    return false;
+	}
 	/**
 	 * method to center the layout on the screen (horizontal only)
 	 */
@@ -231,6 +321,31 @@ abstract public class FeatureDiagramLayoutManager {
 				}
 			}
 		}
+		
+
+
+		for (final IGraphicalFeature feature : nonHidden) {
+			//Check for intersections of the legend with the edges
+			List<FeatureConnection> targets = feature.getTargetConnections();
+			if (targets != null) {
+				for (int i = 0; i < targets.size(); i++) {
+					final Point source = targets.get(i).getSource().getLocation();
+					final Point target = targets.get(i).getTarget().getLocation();
+					if (checkIntersection(source, target, new Point(max.x - legendSize.width - FMPropertyManager.getFeatureSpaceX(), min.y + legendSize.height + (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
+						topRight = false;
+	
+					if (checkIntersection(source, target, new Point(min.x + legendSize.width + FMPropertyManager.getFeatureSpaceX(), min.y + legendSize.height + (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
+						topLeft = false;
+					
+					if (checkIntersection(source, target, new Point(min.x + legendSize.width + FMPropertyManager.getFeatureSpaceX(), max.y - legendSize.height - (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
+						botLeft = false;
+					
+					if (checkIntersection(source, target, new Point(max.x - legendSize.width - FMPropertyManager.getFeatureSpaceX(), max.y - legendSize.height - (FMPropertyManager.getFeatureSpaceY() / 2)) , legendSize))
+						botRight = false;
+				}	
+			}
+		}
+		
 		/*
 		 * check if constraints would intersect with the legend on the edges
 		 */
@@ -391,6 +506,28 @@ abstract public class FeatureDiagramLayoutManager {
 							botRight = false;
 						}
 					}
+				}
+				
+			}
+			for (final IGraphicalFeature feature : nonHidden) {
+				//Check for intersections of the legend with the edges
+				List<FeatureConnection> targets = feature.getTargetConnections();
+				if (targets != null) {
+					for (int i = 0; i < targets.size(); i++) {
+						final Point source = targets.get(i).getSource().getLocation();
+						final Point target = targets.get(i).getTarget().getLocation();
+						if (checkIntersection(source, target, new Point(max.x - legendSize.width - FMPropertyManager.getFeatureSpaceX(), min.y + legendSize.height + (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
+							topRight = false;
+		
+						if (checkIntersection(source, target, new Point(min.x + legendSize.width + FMPropertyManager.getFeatureSpaceX(), min.y + legendSize.height + (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
+							topLeft = false;
+						
+						if (checkIntersection(source, target, new Point(min.x + legendSize.width + FMPropertyManager.getFeatureSpaceX(), max.y - legendSize.height - (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
+							botLeft = false;
+						
+						if (checkIntersection(source, target, new Point(max.x - legendSize.width - FMPropertyManager.getFeatureSpaceX(), max.y - legendSize.height - (FMPropertyManager.getFeatureSpaceY() / 2)) , legendSize))
+							botRight = false;
+					}	
 				}
 			}
 			/*
