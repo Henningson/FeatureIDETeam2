@@ -139,7 +139,6 @@ public class CollapseAction extends MultipleSelectionAction {
 	
 	private void changeCollapsedStatus(boolean allCollapsed) {
 		final SetFeatureToCollapseOperation op = new SetFeatureToCollapseOperation(featureArray, graphicalFeatureModel, allCollapsed, getStringLabel());
-
 		try {
 			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, null, null);
 		} catch (final ExecutionException e) {
@@ -224,5 +223,4 @@ public class CollapseAction extends MultipleSelectionAction {
 		}
 		return features.toArray(new IFeature[features.size()]);
 	}
-
 }
