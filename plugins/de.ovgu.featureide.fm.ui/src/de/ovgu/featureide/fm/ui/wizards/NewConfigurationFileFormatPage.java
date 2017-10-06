@@ -21,6 +21,7 @@
 package de.ovgu.featureide.fm.ui.wizards;
 
 import static de.ovgu.featureide.fm.core.localization.StringTable.SELECTED_FILE_ALREADY_EXISTS_;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -38,9 +39,7 @@ import org.eclipse.swt.widgets.Label;
 
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.impl.ConfigFormatManager;
-import de.ovgu.featureide.fm.core.base.impl.FMFormatManager;
 import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
-import de.ovgu.featureide.fm.core.io.IFeatureModelFormat;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 
 /**

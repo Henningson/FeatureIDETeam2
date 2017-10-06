@@ -64,6 +64,7 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
+		
 		this.initConfigFolder();
 		final IConfigurationFormat format = formatPage.getFormat();
 
@@ -71,6 +72,9 @@ public class NewConfigurationWizard extends Wizard implements INewWizard {
 		SimpleFileHandler.save(configPath, new Configuration(defaultFeatureModel()), format);
 
 		assert (Files.exists(configPath)) : NEW_FILE_WAS_NOT_ADDED_TO_FILESYSTEM;
+		
+		IFile file = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(configPath.toUri())[0];
+		file.getProject().hasNature("HIERFIDENATURE");
 
 		String fileName = locationpage.getFileName() + "." + format.getSuffix();
 		//IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName));
