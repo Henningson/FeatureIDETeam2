@@ -698,6 +698,7 @@ public class FeatureDiagramEditor extends ScrollingGraphicalViewer implements GU
 
 			// if a connection is selected
 		} else if (andAction.isEnabled() || orAction.isEnabled() || alternativeAction.isEnabled()) {
+
 			connectionEntrys(menu);
 			// if nothing is selected
 		} else {
