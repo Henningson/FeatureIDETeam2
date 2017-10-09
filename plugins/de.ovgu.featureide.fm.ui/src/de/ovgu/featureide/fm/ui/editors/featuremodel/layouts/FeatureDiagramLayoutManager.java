@@ -120,32 +120,33 @@ abstract public class FeatureDiagramLayoutManager {
 			}
 		}
 		
+		
 		if ((legendSize == null) && (legendFigure == null)) {
 			return;
 		}
-	
-		boolean hit = false;
 		
+		boolean hit = false;
+		Point target = null;
+		Point source = null;
 		for (final IGraphicalFeature feature : nonHidden) {
 			//Check for intersections of the legend with the edges
 			List<FeatureConnection> targets = feature.getTargetConnections();
 			if (targets != null) {
 				for (int i = 0; i < targets.size(); i++) {
-					final Point source = targets.get(i).getSource().getLocation();
-					final Point target = targets.get(i).getTarget().getLocation();
-					if (checkIntersection(source, target, legendFigure.getLocation(), legendSize))
+					if (!featureModel.getLayout().verticalLayout()) {
+						target = new Point(targets.get(i).getSource().getLocation().x + targets.get(i).getSource().getSize().width/2, targets.get(i).getSource().getLocation().y);
+						source = new Point(targets.get(i).getTarget().getLocation().x + targets.get(i).getTarget().getSize().width/2, targets.get(i).getTarget().getLocation().y + targets.get(i).getTarget().getSize().height);
+					} else {
+						target = new Point(targets.get(i).getSource().getLocation().x, targets.get(i).getSource().getLocation().y + targets.get(i).getSource().getSize().height/2);
+						source = new Point(targets.get(i).getTarget().getLocation().x + targets.get(i).getTarget().getSize().width/2, targets.get(i).getTarget().getLocation().y + targets.get(i).getTarget().getSize().height/2);
+					}
+					if (checkIntersection(source, target, featureModel.getLayout().getLegendPos(), legendSize))
 						hit = true;
 				}	
 			}
 		}
 
-		/*
-		 * set the legend position
-		 */
 		if (hit) {
-			System.out.println("HIT");
-			System.out.println("Legend Position: " + legendFigure.getLocation().x + " " + legendFigure.getLocation().y);
-			System.out.println("Legend Size: " + legendSize.width + " " + legendSize.height);
 			legendFigure.setBackgroundColor(new Color(null, 255, 0, 0));
 		} else {
 			legendFigure.setBackgroundColor(new Color(null, 255, 255, 255));
@@ -168,25 +169,21 @@ abstract public class FeatureDiagramLayoutManager {
 		float y = m * (float)(legendPos.x - source.x) + (float)source.y;
 		
 	    if (y >= legendPos.y && y <= legendHeight) {
-	    	System.out.println("Y-Hit at: " + y);
 	    	return true;
 	    }
 
 	    y = m * (float)(legendWidth - source.x) + (float)source.y;
 	    if (y >= legendPos.y && y <= legendHeight) {
-	    	System.out.println("Y-Hit at: " + y);
 	    	return true;
 	    }
 
 	    float x = (float)(legendPos.y - source.y) / m + (float)source.x;
 	    if (x >= legendPos.x && x <= legendWidth) {
-	    	System.out.println("X-Hit at: " + y);
 	    	return true;
 	    }
 
 	    x = (float)(legendHeight - source.y) / m + (float)source.x;
 	    if (x >= legendPos.x && x <= legendWidth) {
-	    	System.out.println("X-Hit at: " + y);
 	    	return true;
 	    }
 	    
@@ -322,15 +319,22 @@ abstract public class FeatureDiagramLayoutManager {
 			}
 		}
 		
-
+		
+		Point target = null;
+		Point source = null;
 
 		for (final IGraphicalFeature feature : nonHidden) {
 			//Check for intersections of the legend with the edges
 			List<FeatureConnection> targets = feature.getTargetConnections();
 			if (targets != null) {
 				for (int i = 0; i < targets.size(); i++) {
-					final Point source = targets.get(i).getSource().getLocation();
-					final Point target = targets.get(i).getTarget().getLocation();
+					if (!featureModel.getLayout().verticalLayout()) {
+						target = new Point(targets.get(i).getSource().getLocation().x + targets.get(i).getSource().getSize().width/2, targets.get(i).getSource().getLocation().y);
+						source = new Point(targets.get(i).getTarget().getLocation().x + targets.get(i).getTarget().getSize().width/2, targets.get(i).getTarget().getLocation().y + targets.get(i).getTarget().getSize().height);
+					} else {
+						target = new Point(targets.get(i).getSource().getLocation().x, targets.get(i).getSource().getLocation().y + targets.get(i).getSource().getSize().height/2);
+						source = new Point(targets.get(i).getTarget().getLocation().x + targets.get(i).getTarget().getSize().width/2, targets.get(i).getTarget().getLocation().y + targets.get(i).getTarget().getSize().height/2);
+					}
 					if (checkIntersection(source, target, new Point(max.x - legendSize.width - FMPropertyManager.getFeatureSpaceX(), min.y + legendSize.height + (FMPropertyManager.getFeatureSpaceY() / 2)), legendSize))
 						topRight = false;
 	
