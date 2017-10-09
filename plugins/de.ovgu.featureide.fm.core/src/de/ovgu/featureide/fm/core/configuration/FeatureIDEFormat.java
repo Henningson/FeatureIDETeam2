@@ -44,7 +44,7 @@ import de.ovgu.featureide.fm.core.localization.StringTable;
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-public class FeatureIDEFormat implements IConfigurationFormat { //.fideconf
+public class FeatureIDEFormat implements IConfigurationFormat {
 
 	public static final String ID = PluginID.PLUGIN_ID + ".format.config." + FeatureIDEFormat.class.getSimpleName();
 
@@ -128,7 +128,6 @@ public class FeatureIDEFormat implements IConfigurationFormat { //.fideconf
 
 	@Override
 	public String write(Configuration configuration) {
-		System.out.println("FeatureIDEFormat");
 		final StringBuilder buffer = new StringBuilder();
 		buffer.append("# Lists all features from the model with manual (first digit) and automatic (second digit) selection");
 		buffer.append(NEWLINE);
@@ -194,14 +193,12 @@ public class FeatureIDEFormat implements IConfigurationFormat { //.fideconf
 	public String getName() {
 		return "FeatureIDE-Internal";
 	}
-	
+
 	@Override
 	public String writeEmptyConfig() {
 		final StringBuilder buffer = new StringBuilder();
 		buffer.append("");
-		
+
 		return buffer.toString();
 	}
-
-
 }

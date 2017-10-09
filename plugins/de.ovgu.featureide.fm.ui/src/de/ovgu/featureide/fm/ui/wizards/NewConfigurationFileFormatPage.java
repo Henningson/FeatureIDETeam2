@@ -48,6 +48,8 @@ import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
  * 
  * @author Christian Becker
  * @author Jens Meinicke
+ * @author Marlen Bernier
+ * @author Dawid Szczepanski
  */
 public class NewConfigurationFileFormatPage extends WizardPage {
 
@@ -131,5 +133,4 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 		}
 		return !fileExists;
 	}
-
 }
