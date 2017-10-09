@@ -34,7 +34,6 @@ import de.ovgu.featureide.fm.core.base.IFeatureModel;
 import de.ovgu.featureide.fm.core.base.IFeatureModelFactory;
 import de.ovgu.featureide.fm.core.base.impl.FMFactoryManager;
 
-
 /**
  * Holds common behavior of a NewFile Creation Wizard
  * 
@@ -48,6 +47,12 @@ public abstract class AbstractNewFileWizard<T> extends Wizard implements INewWiz
 	protected WizardNewFileCreationPage locationpage;
 	protected WizardPage formatPage;
 	
+	public abstract Path getNewFilePath(T format);
+	
+	protected Path getFullPath(String fileName) {
+		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName)).getLocationURI());
+	}
+	
 	protected IFeatureModel defaultFeatureModel() {
 		final IFeatureModelFactory factory = FMFactoryManager.getDefaultFactory();
 		IFeatureModel newFm = factory.createFeatureModel();
@@ -57,13 +62,6 @@ public abstract class AbstractNewFileWizard<T> extends Wizard implements INewWiz
 		newFm.getStructure().setRoot(root.getStructure());
 
 		return newFm;
-	}
-
-	
-	public abstract Path getNewFilePath(T format);
-	
-	protected Path getFullPath(String fileName) {
-		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName)).getLocationURI());
 	}
 	
 	@Override

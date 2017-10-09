@@ -44,5 +44,4 @@ public interface IPersistentFormat<T> extends IExtension {
 	boolean supportsWrite();
 
 	boolean supportsContent(CharSequence content);
-
 }

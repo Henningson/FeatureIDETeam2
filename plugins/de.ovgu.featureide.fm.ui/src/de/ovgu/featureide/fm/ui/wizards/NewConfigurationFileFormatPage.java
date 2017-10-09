@@ -27,7 +27,6 @@ import java.nio.file.Path;
 import java.util.List;
 
 import org.eclipse.jface.dialogs.IDialogPage;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -37,8 +36,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeColumn;
 
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.impl.ConfigFormatManager;
@@ -46,9 +43,8 @@ import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
 import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 
 /**
- * The NEW wizard page allows setting the container for the new file as well
- * as the file name. The page will only accept file name without the extension
- * OR with the extension that matches the expected one (.config).
+ * The NEW wizard page allows setting the container for the new file as well as the file name. The page will only accept file name without the extension OR with
+ * the extension that matches the expected one (.config).
  * 
  * @author Christian Becker
  * @author Jens Meinicke
@@ -58,7 +54,7 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	private final List<IConfigurationFormat> formatExtensions = ConfigFormatManager.getInstance().getExtensions();
 
 	private Combo formatCombo;
-	
+
 	/**
 	 * Constructor for SampleNewWizardPage.
 	 * 
@@ -86,11 +82,7 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 		formatCombo = new Combo(composite, SWT.BORDER | SWT.SINGLE);
 		formatCombo.setLayoutData(gd);
 		new Label(composite, SWT.NULL);
-        Tree tree = new Tree(composite, SWT.MULTI);
-        TreeViewer newTreeViewer = new TreeViewer(tree);
-        TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);
-		treeColumn.setResizable(true);
-		
+
 		initialize();
 		addListeners();
 		dialogChanged();
@@ -99,6 +91,7 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 
 	private void addListeners() {
 		formatCombo.addModifyListener(new ModifyListener() {
+
 			public void modifyText(ModifyEvent e) {
 				dialogChanged();
 			}

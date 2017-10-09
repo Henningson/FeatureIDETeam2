@@ -26,11 +26,21 @@ import de.ovgu.featureide.fm.core.configuration.Configuration;
  * Format for {@link Configuration configurations}.
  *
  * @author Sebastian Krieter
+ * @author Marlen Bernier
+ * @author Dawid Szczepanski
  */
 public interface IConfigurationFormat extends IPersistentFormat<Configuration> {
 
 	public static String extensionPointID = "ConfigFormat";
 
 	public static String extensionID = "configFormat";
+	
+	/**
+	 * Prepares a string, which can be written to a file by calling methods.
+	 * The string represents an empty configuration in the current format.
+	 * Every class which implements this interface decides themselves upon the format.
+	 * @return the prepared string in the current format (e.g. XML, Default, FeautreIDEFormat)
+	 */
+	public String writeEmptyConfig();	
 
 }

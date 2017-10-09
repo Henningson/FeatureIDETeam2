@@ -54,7 +54,7 @@ public class Configuration implements Cloneable {
 
 	final boolean ignoreAbstractFeatures;
 
-	protected final IFeatureModel featureModel;
+	protected IFeatureModel featureModel;
 	private final SelectableFeature root;
 	private final ConfigurationPropagator propagator;
 	private boolean propagate = true;

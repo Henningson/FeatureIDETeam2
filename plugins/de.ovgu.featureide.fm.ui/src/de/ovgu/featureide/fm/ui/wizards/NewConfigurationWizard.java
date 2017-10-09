@@ -29,14 +29,13 @@ import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
 import de.ovgu.featureide.fm.core.configuration.Configuration;
 import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
-import de.ovgu.featureide.fm.core.io.manager.SimpleFileHandler;
+import de.ovgu.featureide.fm.core.io.manager.ConfigFileHandler;
 import de.ovgu.featureide.fm.ui.FMUIPlugin;
 import de.ovgu.featureide.fm.ui.editors.configuration.ConfigurationEditor;
 
@@ -64,25 +63,15 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 		final IConfigurationFormat format = ((NewConfigurationFileFormatPage) formatPage).getFormat();
 		final Path configPath = getNewFilePath(format);
 
-		IFile file = ResourcesPlugin.getWorkspace().getRoot().findFilesForLocationURI(configPath.toUri())[0];
-
-		try {
-			if (file.getProject().hasNature("de.ovgu.featureide.core.featureProjectNature")) {
-				System.out.println("Ist Feature ID Project und hat funktioniert !!!");
-			}
-		} catch (CoreException e1) {
-			System.err.println("Exception!");
-		}
-
-		// IConfigurationFormat format2 = (IConfigurationFormat)format;
-		SimpleFileHandler.save(configPath, new Configuration(defaultFeatureModel()), format);
-
 		assert (Files.exists(configPath)) : NEW_FILE_WAS_NOT_ADDED_TO_FILESYSTEM;
 		String fileName = locationpage.getFileName() + "." + format.getSuffix();
-		IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
+
+		IFile configFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
+		ConfigFileHandler.saveConfig(configPath, new Configuration(defaultFeatureModel()), format);
+
 		try {
 			// open editor
-			FMUIPlugin.getDefault().openEditor(ConfigurationEditor.ID, modelFile);
+			FMUIPlugin.getDefault().openEditor(ConfigurationEditor.ID, configFile);
 		} catch (final Exception e) {
 			FMUIPlugin.getDefault().logError(e);
 		}
@@ -98,7 +87,6 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 			fileName = configFolder + fileName;
 		}
 		return getFullPath(fileName);
-
 	}
 
 	/**
