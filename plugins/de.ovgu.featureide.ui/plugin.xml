@@ -23,13 +23,6 @@
 				name="FeatureIDE Source File"
 				project="false">
 		</wizard>
-		<wizard
-				category="de.ovgu.featureide.fm.ui.category"
-				class="de.ovgu.featureide.ui.wizards.NewConfigurationFileWizard"
-				icon="icons/NewConfigurationIcon.png"
-				id="de.ovgu.featureide.ui.wizards.NewConfigurationFileWizard"
-				name="Configuration File"
-				project="false"/>
 	</extension>
 	<extension
 			point="org.eclipse.ui.decorators">

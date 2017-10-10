@@ -216,5 +216,4 @@ public abstract class AXMLFormat<T> implements IPersistentFormat<T>, XMLFeatureM
 	 * @param doc document to write
 	 */
 	protected abstract void writeDocument(Document doc);
-
 }
