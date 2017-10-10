@@ -41,18 +41,16 @@ import de.ovgu.featureide.fm.core.base.impl.FMFactoryManager;
  * @author Dawid Szczepanski
  */
 public abstract class AbstractNewFileWizard<T> extends Wizard implements INewWizard {
-	
-	//public static final String ID = FMUIPlugin.PLUGIN_ID + ".wizard.NewConfigurationWizard";
-	
+
 	protected WizardNewFileCreationPage locationpage;
 	protected WizardPage formatPage;
-	
+
 	public abstract Path getNewFilePath(T format);
-	
+
 	protected Path getFullPath(String fileName) {
 		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName)).getLocationURI());
 	}
-	
+
 	protected IFeatureModel defaultFeatureModel() {
 		final IFeatureModelFactory factory = FMFactoryManager.getDefaultFactory();
 		IFeatureModel newFm = factory.createFeatureModel();
@@ -63,7 +61,7 @@ public abstract class AbstractNewFileWizard<T> extends Wizard implements INewWiz
 
 		return newFm;
 	}
-	
+
 	@Override
 	public void addPages() {
 		addPage(locationpage);

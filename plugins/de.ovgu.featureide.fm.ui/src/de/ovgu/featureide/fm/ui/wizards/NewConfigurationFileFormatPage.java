@@ -110,7 +110,6 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	}
 
 	private void initialize() {
-		
 		for (IConfigurationFormat format : formatExtensions) {
 			formatCombo.add(format.getName() + " (*." + format.getSuffix() + ")");
 		}

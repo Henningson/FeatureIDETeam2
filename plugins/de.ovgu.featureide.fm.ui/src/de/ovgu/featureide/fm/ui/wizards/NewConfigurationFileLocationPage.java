@@ -25,7 +25,8 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 /**
  * 
- * @author Sebastian Krieter
+ * @author Marlen Bernier
+ * @author Dawid Szczepanski
  */
 public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage {
 
@@ -34,5 +35,4 @@ public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage 
 		setTitle("Choose Location");
 		setDescription("Select a path to the new Configuration file.");
 	}
-
 }
