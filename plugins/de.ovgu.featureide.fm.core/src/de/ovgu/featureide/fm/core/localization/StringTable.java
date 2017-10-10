@@ -1081,11 +1081,8 @@ public class StringTable {
 	public static final String CURRENTLY_NO_COLOR_SCHEME_SELECTED = "No color scheme is selected";
 	public static final String CURRENTLY_NO_COLOR_SCHEME_SELECTED_DIALOG =
 		"There is currently no color scheme selected. To color features please use the color scheme wizard and select a color scheme.";
-
 	public static final String PUBLIC_CLASS = "public class";
 	public static final String PUBLIC_INTERFACE = "public interface";
-	
 	public static final String CONSTRAINT_DESCRIPTION = "Constraint Description";
-	public static final String STARTING_WITH = "Starting With";
 	public static final String PLEASE_ENTER_A_DESCRIPTION_FOR_CONSTRAINT_ = "Please enter a description for constraint:";
 }
