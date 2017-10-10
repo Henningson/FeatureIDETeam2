@@ -39,8 +39,8 @@ import org.eclipse.swt.widgets.Label;
 
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.impl.ConfigFormatManager;
+import de.ovgu.featureide.fm.core.configuration.XMLConfFormat;
 import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
-import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 
 /**
  * The NEW wizard page allows setting the container for the new file as well as the file name. The page will only accept file name without the extension OR with
@@ -56,6 +56,8 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	private final List<IConfigurationFormat> formatExtensions = ConfigFormatManager.getInstance().getExtensions();
 
 	private Combo formatCombo;
+	
+	String description;
 
 	/**
 	 * Constructor for SampleNewWizardPage.
@@ -66,6 +68,7 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 		super("format");
 		setTitle("Choose Format");
 		setDescription("Select a format for the new configuration file.");
+		
 	}
 
 	/**
@@ -94,29 +97,36 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	private void addListeners() {
 		formatCombo.addModifyListener(new ModifyListener() {
 
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) {				
+				String suffix= getFormat().getSuffix();
+				if( !suffix.equals("xml")) {
+					description = "Does not support selection and deselection of abstract features!";
+				}else {
+					description = "Select a format for the new configuration file.";
+				}
 				dialogChanged();
 			}
 		});
 	}
 
 	private void initialize() {
+		
 		for (IConfigurationFormat format : formatExtensions) {
 			formatCombo.add(format.getName() + " (*." + format.getSuffix() + ")");
 		}
 		try {
-			formatCombo.select(formatExtensions.indexOf(ConfigFormatManager.getInstance().getExtension(XmlFeatureModelFormat.ID)));
+			formatCombo.select(formatExtensions.indexOf(ConfigFormatManager.getInstance().getExtension(XMLConfFormat.ID)));
 		} catch (NoSuchExtensionException e) {
 			formatCombo.select(0);
 		}
 	}
 
 	private void dialogChanged() {
-		updateStatus(null);
+		updateStatus(description);
 	}
 
 	private void updateStatus(String message) {
-		setErrorMessage(message);
+		setMessage(message);
 		setPageComplete(message == null);
 	}
 

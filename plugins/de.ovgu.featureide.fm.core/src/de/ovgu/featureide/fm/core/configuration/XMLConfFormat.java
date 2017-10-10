@@ -190,7 +190,7 @@ public class XMLConfFormat extends AXMLFormat<Configuration> implements IConfigu
 
 	@Override
 	public String getName() {
-		return "XML";
+		return "FeatureIDE Configuration Format";
 	}
 
 	/**
