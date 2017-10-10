@@ -24,7 +24,8 @@ package de.ovgu.featureide.fm.ui.extensionpoint;
 /**
  * TODO description
  * 
- * @author gruppe6
+ * @author Marlen Bernier
+ * @author Dawid Szczepanski
  */
 public interface TodoExtensionInterface {
 	
