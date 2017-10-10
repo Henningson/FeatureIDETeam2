@@ -141,4 +141,10 @@
          </enabledWhen>
       </page>
    </extension>
+  <extension
+        point="de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester">
+     <TodoExtensionInterface
+           class="de.ovgu.featureide.core.TodoExtensionChecker">
+     </TodoExtensionInterface>
+  </extension>
 </plugin>
