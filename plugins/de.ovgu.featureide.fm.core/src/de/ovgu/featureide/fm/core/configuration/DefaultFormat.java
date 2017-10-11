@@ -212,5 +212,4 @@ public class DefaultFormat implements IConfigurationFormat {
 
 		return buffer.toString();
 	}
-
 }

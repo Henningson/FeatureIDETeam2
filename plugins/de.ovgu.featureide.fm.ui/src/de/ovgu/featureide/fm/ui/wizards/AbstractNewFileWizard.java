@@ -41,32 +41,30 @@ import de.ovgu.featureide.fm.core.base.impl.FMFactoryManager;
  * @author Dawid Szczepanski
  */
 public abstract class AbstractNewFileWizard<T> extends Wizard implements INewWizard {
-	
-	//public static final String ID = FMUIPlugin.PLUGIN_ID + ".wizard.NewConfigurationWizard";
-	
-	protected WizardNewFileCreationPage locationpage;
+
+	protected WizardNewFileCreationPage locationPage;
 	protected WizardPage formatPage;
-	
+
 	public abstract Path getNewFilePath(T format);
-	
+
 	protected Path getFullPath(String fileName) {
-		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName)).getLocationURI());
+		return Paths.get(ResourcesPlugin.getWorkspace().getRoot().getFile(locationPage.getContainerFullPath().append(fileName)).getLocationURI());
 	}
-	
+
 	protected IFeatureModel defaultFeatureModel() {
 		final IFeatureModelFactory factory = FMFactoryManager.getDefaultFactory();
-		IFeatureModel newFm = factory.createFeatureModel();
-		final IFeature root = factory.createFeature(newFm, "root");
+		IFeatureModel newFeatureModel = factory.createFeatureModel();
+		final IFeature root = factory.createFeature(newFeatureModel, "root");
 
-		newFm.addFeature(root);
-		newFm.getStructure().setRoot(root.getStructure());
+		newFeatureModel.addFeature(root);
+		newFeatureModel.getStructure().setRoot(root.getStructure());
 
-		return newFm;
+		return newFeatureModel;
 	}
-	
+
 	@Override
 	public void addPages() {
-		addPage(locationpage);
+		addPage(locationPage);
 		addPage(formatPage);
 	}
 }

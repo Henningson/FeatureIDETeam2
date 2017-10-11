@@ -56,6 +56,8 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	private final List<IConfigurationFormat> formatExtensions = ConfigFormatManager.getInstance().getExtensions();
 
 	private Combo formatCombo;
+	
+	String description;
 
 	/**
 	 * Constructor for SampleNewWizardPage.
@@ -94,7 +96,13 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	private void addListeners() {
 		formatCombo.addModifyListener(new ModifyListener() {
 
-			public void modifyText(ModifyEvent e) {
+			public void modifyText(ModifyEvent e) {				
+				String suffix= getFormat().getSuffix();
+				if(!suffix.equals("xml")) {
+					description = "Does not support selection and deselection of abstract features!";
+				} else {
+					description = "Select a format for the new configuration file.";
+				}
 				dialogChanged();
 			}
 		});
@@ -112,11 +120,11 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 	}
 
 	private void dialogChanged() {
-		updateStatus(null);
+		updateStatus(description);
 	}
 
 	private void updateStatus(String message) {
-		setErrorMessage(message);
+		setMessage(message);
 		setPageComplete(message == null);
 	}
 

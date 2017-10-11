@@ -98,5 +98,3 @@ Export-Package: de.ovgu.featureide.fm.ui,
  de.ovgu.featureide.fm.ui.views.outline.custom.providers,
  de.ovgu.featureide.fm.ui.views.outline.standard,
  de.ovgu.featureide.fm.ui.wizards
-
-

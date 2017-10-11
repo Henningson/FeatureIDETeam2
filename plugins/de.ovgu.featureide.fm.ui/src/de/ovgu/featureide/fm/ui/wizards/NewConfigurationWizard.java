@@ -64,9 +64,9 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 		final Path configPath = getNewFilePath(format);
 
 		assert (Files.exists(configPath)) : NEW_FILE_WAS_NOT_ADDED_TO_FILESYSTEM;
-		String fileName = locationpage.getFileName() + "." + format.getSuffix();
+		String fileName = locationPage.getFileName() + "." + format.getSuffix();
 
-		IFile configFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
+		IFile configFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationPage.getContainerFullPath().append(configFolder).append(fileName));
 		ConfigFileHandler.saveConfig(configPath, new Configuration(defaultFeatureModel()), format);
 		
 		try {
@@ -80,7 +80,7 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 
 	@Override
 	public Path getNewFilePath(IConfigurationFormat format) {
-		String fileName = locationpage.getFileName();
+		String fileName = locationPage.getFileName();
 
 		if (!fileName.matches(".+\\." + Pattern.quote(format.getSuffix()))) {
 			fileName += "." + format.getSuffix();
@@ -105,6 +105,6 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		formatPage = new NewConfigurationFileFormatPage();
-		locationpage = new NewConfigurationFileLocationPage("location", selection);
+		locationPage = new NewConfigurationFileLocationPage("location", selection);
 	}
 }

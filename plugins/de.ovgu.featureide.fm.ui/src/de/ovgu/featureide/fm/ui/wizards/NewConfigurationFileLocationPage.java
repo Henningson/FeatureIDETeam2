@@ -57,13 +57,10 @@ public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage 
 				IPath chosenPath = this.getContainerFullPath();
 
 				FMUIPlugin.getDefault().setProjectResource(res, chosenPath);
-				
-				//if (FMUIPlugin.getDefault().setProjectResource(res, chosenPath)) {
-					setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 1);
-					if (FMUIPlugin.getDefault().getExtensionWarningMessage().equals("")) {
-						setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 0);
-					}
-				//}
+				setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 1);
+				if (FMUIPlugin.getDefault().getExtensionWarningMessage().equals("")) {
+					setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 0);
+				}
 			}
 
 		}

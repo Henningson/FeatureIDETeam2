@@ -71,8 +71,8 @@ public class NewFeatureModelWizard extends AbstractNewFileWizard<IFeatureModelFo
 		}
 		featureModel.createDefaultValues("");
 		FileHandler.save(fmPath, featureModel, format);
-		String fileName = locationpage.getFileName();
-		IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(fileName + "." + format.getSuffix()));
+		String fileName = locationPage.getFileName();
+		IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationPage.getContainerFullPath().append(fileName + "." + format.getSuffix()));
 
 		assert (Files.exists(fmPath)) : NEW_FILE_WAS_NOT_ADDED_TO_FILESYSTEM;
 		try {
@@ -86,7 +86,7 @@ public class NewFeatureModelWizard extends AbstractNewFileWizard<IFeatureModelFo
 
 	@Override
 	public Path getNewFilePath(IFeatureModelFormat format) {
-		String fileName = locationpage.getFileName();
+		String fileName = locationPage.getFileName();
 		if (!fileName.matches(".+\\." + Pattern.quote(format.getSuffix()))) {
 			fileName += "." + format.getSuffix();
 		}
@@ -96,6 +96,6 @@ public class NewFeatureModelWizard extends AbstractNewFileWizard<IFeatureModelFo
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		formatPage = new NewFeatureModelFileFormatPage();
-		locationpage = new NewFeatureModelFileLocationPage("location", selection);
+		locationPage = new NewFeatureModelFileLocationPage("location", selection);
 	}
 }
