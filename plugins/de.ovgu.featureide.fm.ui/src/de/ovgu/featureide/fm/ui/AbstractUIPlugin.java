@@ -26,15 +26,9 @@ import static de.ovgu.featureide.fm.core.localization.StringTable.STOPPING_FEATU
 import static de.ovgu.featureide.fm.core.localization.StringTable.UNABLE_TO_OPEN_FILE;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
-
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -42,8 +36,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osgi.framework.BundleContext;
-
-import de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface;
 
 /**
  * A default implementation for UI plug-ins within FeatureIDE.
@@ -68,7 +60,7 @@ abstract public class AbstractUIPlugin extends org.eclipse.ui.plugin.AbstractUIP
 		super.start(context);
 		logInfo(STARTING_FEATUREIDE_PLUG_IN_ + getID() + "'");
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)

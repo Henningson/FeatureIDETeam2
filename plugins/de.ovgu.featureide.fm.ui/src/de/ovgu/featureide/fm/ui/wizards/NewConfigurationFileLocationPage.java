@@ -20,13 +20,9 @@
  */
 package de.ovgu.featureide.fm.ui.wizards;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
@@ -37,16 +33,14 @@ import de.ovgu.featureide.fm.ui.FMUIPlugin;
  * 
  * @author Sebastian Krieter
  * @author Marlen Bernier
+ * @author Dawid Szczepanski
  */
 public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage {
-
-	String warningMessage = "";
 
 	public NewConfigurationFileLocationPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 		setTitle("Choose Location");
 		setDescription("Select a path to the new Configuration file.");
-		setMessage(warningMessage);
 
 	}
 
@@ -59,22 +53,17 @@ public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage 
 			 * The following should only happen when the user chooses a FeatureIDE project and if not only feature modeling is installed
 			 */
 			if (this.getContainerFullPath() != null && this.getContainerFullPath().segmentCount() >= 1) {
+				IResource res = ResourcesPlugin.getWorkspace().getRoot().getProject(this.getContainerFullPath().segment(0).toString());
+				IPath chosenPath = this.getContainerFullPath();
 
-				IResource res2 = ResourcesPlugin.getWorkspace().getRoot().getProject(this.getContainerFullPath().segment(0).toString());
-
-				if (FMUIPlugin.getDefault().setProjectResource(res2)) {
-					if (!this.getContainerFullPath().lastSegment().toString().equals("configs")) {
-						warningMessage = "For FeatureIDE Projects it is recommended to use a 'configs' folder for configurations";
-						setMessage(warningMessage, 1);
-					} else {
-						warningMessage = "";
-						setMessage(warningMessage, 0);
+				FMUIPlugin.getDefault().setProjectResource(res, chosenPath);
+				
+				//if (FMUIPlugin.getDefault().setProjectResource(res, chosenPath)) {
+					setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 1);
+					if (FMUIPlugin.getDefault().getExtensionWarningMessage().equals("")) {
+						setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 0);
 					}
-
-				} else {
-					warningMessage = "";
-					setMessage(warningMessage, 0);
-				}
+				//}
 			}
 
 		}

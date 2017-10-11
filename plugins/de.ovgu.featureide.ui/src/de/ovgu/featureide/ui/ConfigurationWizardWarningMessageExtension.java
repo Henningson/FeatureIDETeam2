@@ -21,35 +21,58 @@
 package de.ovgu.featureide.ui;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
 
 import de.ovgu.featureide.core.CorePlugin;
 import de.ovgu.featureide.core.IFeatureProject;
-import de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface;
+import de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface;
 
 /**
- * TODO description
+ * Returns a warning message, under the following conditions:
+ * - The Configuration Wizard is used
+ * - Is FeatureIDE Project
+ * - The selected folder is not a 'configs' folder
+ * - Feature Modeling is not only installed
  * 
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-public class TodoExtensionChecker implements TodoExtensionInterface {
+public class ConfigurationWizardWarningMessageExtension implements ConfigurationWizardWarningMessageExtensionInterface {
 
-	/* 
-	 * @see de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface#extensionMethod()
+	protected String warningMessage = "";
+
+	/*
+	 * @see de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface#extensionMethod()
 	 */
 	@Override
-	public boolean extensionMethod(IResource res) {
-		System.out.println("guten tach");
+	public boolean extensionMethod(IResource res, IPath chosenPath) {
+
 		IFeatureProject project = CorePlugin.getFeatureProject(res);
-		if(project == null){
+		if (project == null) {
+
+			warningMessage = "";
 			return false;
-		}else {
-			if(project.getConfigFolder().toString().contains("configs")){
-				System.out.println("configs ist gleich configs");
+		} else {
+			String configFolderName = project.getConfigFolder().getName();
+			System.out.println(configFolderName);
+
+			if (chosenPath.toString().contains(configFolderName)) {
+				warningMessage = "";
+			} else {
+				warningMessage = "For FeatureIDE Projects it is recommended to use a 'configs' folder for configurations";
 			}
 			System.out.println(project.getConfigFolder());
 			return true;
 		}
-		
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface#getMessage()
+	 */
+	@Override
+	public String getMessage() {
+		return warningMessage;
+	}
+
 }

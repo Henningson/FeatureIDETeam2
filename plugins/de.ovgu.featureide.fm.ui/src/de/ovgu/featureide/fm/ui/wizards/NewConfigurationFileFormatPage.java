@@ -39,8 +39,8 @@ import org.eclipse.swt.widgets.Label;
 
 import de.ovgu.featureide.fm.core.ExtensionManager.NoSuchExtensionException;
 import de.ovgu.featureide.fm.core.base.impl.ConfigFormatManager;
+import de.ovgu.featureide.fm.core.configuration.XMLConfFormat;
 import de.ovgu.featureide.fm.core.io.IConfigurationFormat;
-import de.ovgu.featureide.fm.core.io.xml.XmlFeatureModelFormat;
 
 /**
  * The NEW wizard page allows setting the container for the new file as well as the file name. The page will only accept file name without the extension OR with
@@ -105,7 +105,7 @@ public class NewConfigurationFileFormatPage extends WizardPage {
 			formatCombo.add(format.getName() + " (*." + format.getSuffix() + ")");
 		}
 		try {
-			formatCombo.select(formatExtensions.indexOf(ConfigFormatManager.getInstance().getExtension(XmlFeatureModelFormat.ID)));
+			formatCombo.select(formatExtensions.indexOf(ConfigFormatManager.getInstance().getExtension(XMLConfFormat.ID)));
 		} catch (NoSuchExtensionException e) {
 			formatCombo.select(0);
 		}

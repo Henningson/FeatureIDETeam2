@@ -21,6 +21,7 @@
 package de.ovgu.featureide.fm.ui.extensionpoint;
 
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IPath;
 
 /**
  * TODO description
@@ -28,13 +29,20 @@ import org.eclipse.core.resources.IResource;
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-public interface TodoExtensionInterface {
+public interface ConfigurationWizardWarningMessageExtensionInterface {
 	
 	/**
 	 * This method test if only feature modeling is installed
 	 * @param res TODO
+	 * @param chosenPath TODO
 	 * @return
 	 */
-	public boolean extensionMethod(IResource res);
+	public boolean extensionMethod(IResource res, IPath chosenPath);
+	
+	/**
+	 * @return String, The warning message which is shown if the user has not only "Feature Modeling" installed and does not choose the configs
+	 * folder in the configuration wizard.
+	 */
+	public String getMessage();
 
 }

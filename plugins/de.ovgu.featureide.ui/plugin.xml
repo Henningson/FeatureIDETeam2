@@ -1471,7 +1471,7 @@
  <extension
        point="de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester">
     <TodoExtensionInterface
-          class="de.ovgu.featureide.ui.TodoExtensionChecker">
+          class="de.ovgu.featureide.ui.ConfigurationWizardWarningMessageExtension">
     </TodoExtensionInterface>
  </extension>
 	<extension
