@@ -1468,6 +1468,12 @@
 				</with></enablement>
 		</commonWizard>
 	</extension>
+ <extension
+       point="de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester">
+    <TodoExtensionInterface
+          class="de.ovgu.featureide.ui.TodoExtensionChecker">
+    </TodoExtensionInterface>
+ </extension>
 	<extension
 			point="de.ovgu.featureide.fm.ui.Outline">
 		<Outline

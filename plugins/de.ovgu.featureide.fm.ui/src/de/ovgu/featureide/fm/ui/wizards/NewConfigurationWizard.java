@@ -25,10 +25,12 @@ import static de.ovgu.featureide.fm.core.localization.StringTable.NEW_FILE_WAS_N
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -68,7 +70,7 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 
 		IFile configFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationpage.getContainerFullPath().append(configFolder).append(fileName));
 		ConfigFileHandler.saveConfig(configPath, new Configuration(defaultFeatureModel()), format);
-
+		
 		try {
 			// open editor
 			FMUIPlugin.getDefault().openEditor(ConfigurationEditor.ID, configFile);

@@ -20,6 +20,7 @@
  */
 package de.ovgu.featureide.fm.ui.extensionpoint;
 
+import org.eclipse.core.resources.IResource;
 
 /**
  * TODO description
@@ -31,8 +32,9 @@ public interface TodoExtensionInterface {
 	
 	/**
 	 * This method test if only feature modeling is installed
+	 * @param res TODO
 	 * @return
 	 */
-	public String extensionMethod();
+	public boolean extensionMethod(IResource res);
 
 }

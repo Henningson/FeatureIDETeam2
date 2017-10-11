@@ -18,8 +18,12 @@
  *
  * See http://featureide.cs.ovgu.de/ for further information.
  */
-package de.ovgu.featureide.core;
+package de.ovgu.featureide.ui;
 
+import org.eclipse.core.resources.IResource;
+
+import de.ovgu.featureide.core.CorePlugin;
+import de.ovgu.featureide.core.IFeatureProject;
 import de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface;
 
 /**
@@ -34,9 +38,18 @@ public class TodoExtensionChecker implements TodoExtensionInterface {
 	 * @see de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface#extensionMethod()
 	 */
 	@Override
-	public String extensionMethod() {
-		System.out.println("This is the implemented extension");
-		return "FeatureIDE Project ist usable";
+	public boolean extensionMethod(IResource res) {
+		System.out.println("guten tach");
+		IFeatureProject project = CorePlugin.getFeatureProject(res);
+		if(project == null){
+			return false;
+		}else {
+			if(project.getConfigFolder().toString().contains("configs")){
+				System.out.println("configs ist gleich configs");
+			}
+			System.out.println(project.getConfigFolder());
+			return true;
+		}
+		
 	}
-
 }
