@@ -23,12 +23,6 @@ package de.ovgu.featureide.fm.core;
 import static de.ovgu.featureide.fm.core.localization.StringTable.STARTING_FEATUREIDE_PLUG_IN_;
 import static de.ovgu.featureide.fm.core.localization.StringTable.STOPPING_FEATUREIDE_PLUG_IN_;
 
-//import de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface;
-//import org.eclipse.core.runtime.IConfigurationElement;
-//import org.eclipse.core.runtime.IExtensionPoint;
-//import org.eclipse.core.runtime.IExtensionRegistry;
-//import org.eclipse.core.runtime.Platform;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
@@ -55,30 +49,6 @@ abstract public class AbstractCorePlugin extends Plugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		
-//		IExtensionRegistry reg = Platform.getExtensionRegistry();
-//		String extensionPointId = "de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester";
-//		IExtensionPoint ep = reg.getExtensionPoint(extensionPointId);
-//		org.eclipse.core.runtime.IExtension[] extensions = ep.getExtensions();
-//		/* if there is no extension (core plugin project is closed)
-//		 * then this means, that the user has chosen to only install or use 
-//		 * FeatureIDE with only "Feature Modeling" installed, under this circumstances
-//		 * there is no possibility to use the "New FeatureIDE Project" wizard. 
-//		 */
-//		if(1 == extensions.length) {
-//			IConfigurationElement[] ce = extensions[0].getConfigurationElements();
-//			for (int i = 0; i < ce.length; i++) {
-//				Object obj = ce[i].createExecutableExtension("class");
-//				if(obj instanceof TodoExtensionInterface) {
-//					String retStr = ((TodoExtensionInterface) obj).extensionMethod();
-//					System.out.println(retStr);
-//				}
-//			}
-//		} else {
-//			System.out.println("Core plugin is not available, featureIDE project wizard will not show up");
-//		}
-//		
-		
 		logInfo(STARTING_FEATUREIDE_PLUG_IN_ + getID() + "'");
 	}
 

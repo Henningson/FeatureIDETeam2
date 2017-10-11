@@ -40,7 +40,7 @@ public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage 
 	public NewConfigurationFileLocationPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 		setTitle("Choose Location");
-		setDescription("Select a path to the new Configuration file.");
+		setDescription("Select a path to the new configuration file.");
 
 	}
 

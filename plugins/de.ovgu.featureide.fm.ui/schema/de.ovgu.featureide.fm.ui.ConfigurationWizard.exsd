@@ -3,7 +3,7 @@
 <schema targetNamespace="de.ovgu.featureide.fm.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="de.ovgu.featureide.fm.ui" id="de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester" name="FeatureModelingTester"/>
+         <meta.schema plugin="de.ovgu.featureide.fm.ui" id="de.ovgu.featureide.fm.ui.ConfigurationWizard" name="ConfigurationWizard"/>
       </appInfo>
       <documentation>
          This extension point provides functionality to test if only feature modeling is installed.
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="TodoExtensionInterface"/>
+            <element ref="ConfigurationWizard"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,7 +47,7 @@
       </complexType>
    </element>
 
-   <element name="TodoExtensionInterface">
+   <element name="ConfigurationWizard">
       <annotation>
          <documentation>
             This is a description
@@ -60,7 +60,7 @@
                   Extensions of other plugins should implement this Interface
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":de.ovgu.featureide.fm.ui.extensionpoint.TodoExtensionInterface"/>
+                  <meta.attribute kind="java" basedOn=":de.ovgu.featureide.fm.ui.ConfigurationWizard"/>
                </appInfo>
             </annotation>
          </attribute>

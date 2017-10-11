@@ -34,7 +34,6 @@ import org.osgi.framework.BundleContext;
 
 import de.ovgu.featureide.fm.core.io.ExternalChangeListener;
 import de.ovgu.featureide.fm.ui.editors.EclipseExternalChangeListener;
-import de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface;
 
 /**
  * The activator class controls the plug-in life cycle.
@@ -53,7 +52,7 @@ public class FMUIPlugin extends AbstractUIPlugin {
 	protected boolean isOnlyFeatureModelingInstalled;
 
 	IResource projectResource;
-	ConfigurationWizardWarningMessageExtensionInterface extension;
+	ConfigurationWizard extension;
 
 	@Override
 	public String getID() {
@@ -67,7 +66,7 @@ public class FMUIPlugin extends AbstractUIPlugin {
 		final EclipseExternalChangeListener eclipseExternalChangeListener = new EclipseExternalChangeListener();
 		ExternalChangeListener.listener = eclipseExternalChangeListener;
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(eclipseExternalChangeListener);
-		isOnlyFeatureModelingInstalled = this.checkExistenceOfExtension("de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester");
+		isOnlyFeatureModelingInstalled = this.checkExistenceOfExtension("de.ovgu.featureide.fm.ui.ConfigurationWizard");
 	}
 
 	@Override
@@ -97,7 +96,7 @@ public class FMUIPlugin extends AbstractUIPlugin {
 
 	public boolean setProjectResource(IResource res, IPath chosenPath) {
 		projectResource = res;
-		return extension.extensionMethod(res, chosenPath);
+		return extension.setWarningMessage(res, chosenPath);
 	}
 
 	public String getExtensionWarningMessage() {
@@ -124,9 +123,9 @@ public class FMUIPlugin extends AbstractUIPlugin {
 			IConfigurationElement[] ce = extensions[0].getConfigurationElements();
 			for (int i = 0; i < ce.length; i++) {
 				Object obj = ce[i].createExecutableExtension("class");
-				if (obj instanceof ConfigurationWizardWarningMessageExtensionInterface) {
+				if (obj instanceof ConfigurationWizard) {
 					//save the reference for later use
-					extension = ((ConfigurationWizardWarningMessageExtensionInterface) obj);
+					extension = ((ConfigurationWizard) obj);
 				}
 			}
 			return false;

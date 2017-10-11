@@ -1469,10 +1469,10 @@
 		</commonWizard>
 	</extension>
  <extension
-       point="de.ovgu.featureide.fm.ui.extensionpoint.featuremodeltester">
-    <TodoExtensionInterface
+       point="de.ovgu.featureide.fm.ui.ConfigurationWizard">
+    <ConfigurationWizard
           class="de.ovgu.featureide.ui.ConfigurationWizardWarningMessageExtension">
-    </TodoExtensionInterface>
+    </ConfigurationWizard>
  </extension>
 	<extension
 			point="de.ovgu.featureide.fm.ui.Outline">

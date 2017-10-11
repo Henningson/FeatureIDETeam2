@@ -18,18 +18,24 @@
  *
  * See http://featureide.cs.ovgu.de/ for further information.
  */
-package de.ovgu.featureide.fm.ui.extensionpoint;
+package de.ovgu.featureide.fm.ui;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 
 /**
- * TODO description
+ * Interface
+ *  Returns a warning message, under the following conditions:
+ * - The Configuration Wizard is used
+ * - Is FeatureIDE Project
+ * - The selected folder is not a 'configs' folder
+ * - Feature Modeling is not only installed
+ * 
  * 
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-public interface ConfigurationWizardWarningMessageExtensionInterface {
+public interface ConfigurationWizard {
 	
 	/**
 	 * This method test if only feature modeling is installed
@@ -37,7 +43,7 @@ public interface ConfigurationWizardWarningMessageExtensionInterface {
 	 * @param chosenPath TODO
 	 * @return
 	 */
-	public boolean extensionMethod(IResource res, IPath chosenPath);
+	public boolean setWarningMessage(IResource res, IPath chosenPath);
 	
 	/**
 	 * @return String, The warning message which is shown if the user has not only "Feature Modeling" installed and does not choose the configs

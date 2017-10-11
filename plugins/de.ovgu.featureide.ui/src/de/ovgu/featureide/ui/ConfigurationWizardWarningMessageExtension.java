@@ -25,7 +25,7 @@ import org.eclipse.core.runtime.IPath;
 
 import de.ovgu.featureide.core.CorePlugin;
 import de.ovgu.featureide.core.IFeatureProject;
-import de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface;
+import de.ovgu.featureide.fm.ui.ConfigurationWizard;
 
 /**
  * Returns a warning message, under the following conditions:
@@ -37,38 +37,35 @@ import de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessage
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
-public class ConfigurationWizardWarningMessageExtension implements ConfigurationWizardWarningMessageExtensionInterface {
+public class ConfigurationWizardWarningMessageExtension implements ConfigurationWizard {
 
 	protected String warningMessage = "";
 
 	/*
-	 * @see de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface#extensionMethod()
+	 * @see de.ovgu.featureide.fm.ui.ConfigurationWizard#extensionMethod()
 	 */
 	@Override
-	public boolean extensionMethod(IResource res, IPath chosenPath) {
+	public boolean setWarningMessage(IResource res, IPath chosenPath) {
 
 		IFeatureProject project = CorePlugin.getFeatureProject(res);
 		if (project == null) {
-
 			warningMessage = "";
 			return false;
 		} else {
 			String configFolderName = project.getConfigFolder().getName();
-			System.out.println(configFolderName);
 
 			if (chosenPath.toString().contains(configFolderName)) {
 				warningMessage = "";
 			} else {
 				warningMessage = "For FeatureIDE Projects it is recommended to use a 'configs' folder for configurations";
 			}
-			System.out.println(project.getConfigFolder());
 			return true;
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.ovgu.featureide.fm.ui.extensionpoint.ConfigurationWizardWarningMessageExtensionInterface#getMessage()
+	 * @see de.ovgu.featureide.fm.ui.ConfigurationWizard#getMessage()
 	 */
 	@Override
 	public String getMessage() {
