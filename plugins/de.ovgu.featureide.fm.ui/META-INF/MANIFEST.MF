@@ -40,10 +40,12 @@ Export-Package: de.ovgu.featureide.fm.ui,
  de.ovgu.featureide.fm.ui.editors.featuremodel.editparts,
  de.ovgu.featureide.fm.ui.editors.featuremodel.figures,
  de.ovgu.featureide.fm.ui.editors.featuremodel.figures.anchors,
+ de.ovgu.featureide.fm.ui.editors.featuremodel.filters,
  de.ovgu.featureide.fm.ui.editors.featuremodel.layouts,
  de.ovgu.featureide.fm.ui.editors.featuremodel.operations,
  de.ovgu.featureide.fm.ui.editors.featuremodel.policies,
  de.ovgu.featureide.fm.ui.editors.keyhandler,
+ de.ovgu.featureide.fm.ui.editors.mousehandler,
  de.ovgu.featureide.fm.ui.handlers,
  de.ovgu.featureide.fm.ui.handlers.base,
  de.ovgu.featureide.fm.ui.preferences,
@@ -57,8 +59,8 @@ Export-Package: de.ovgu.featureide.fm.ui,
  de.ovgu.featureide.fm.ui.views.outline.custom,
  de.ovgu.featureide.fm.ui.views.outline.custom.action,
  de.ovgu.featureide.fm.ui.views.outline.custom.filters,
+ de.ovgu.featureide.fm.ui.views.outline.custom.providers,
  de.ovgu.featureide.fm.ui.views.outline.standard,
  de.ovgu.featureide.fm.ui.wizards
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: University of Magdeburg
-
