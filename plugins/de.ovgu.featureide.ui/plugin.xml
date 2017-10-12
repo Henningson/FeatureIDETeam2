@@ -1468,6 +1468,12 @@
 				</with></enablement>
 		</commonWizard>
 	</extension>
+ <extension
+       point="de.ovgu.featureide.fm.ui.ConfigurationWizard">
+    <ConfigurationWizard
+          class="de.ovgu.featureide.ui.ConfigurationWizardWarningMessageExtension">
+    </ConfigurationWizard>
+ </extension>
 	<extension
 			point="de.ovgu.featureide.fm.ui.Outline">
 		<Outline

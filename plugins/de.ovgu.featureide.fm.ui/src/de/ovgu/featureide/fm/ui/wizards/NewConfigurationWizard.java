@@ -68,7 +68,7 @@ public class NewConfigurationWizard extends AbstractNewFileWizard<IConfiguration
 
 		IFile configFile = ResourcesPlugin.getWorkspace().getRoot().getFile(locationPage.getContainerFullPath().append(configFolder).append(fileName));
 		ConfigFileHandler.saveConfig(configPath, new Configuration(defaultFeatureModel()), format);
-
+		
 		try {
 			// open editor
 			FMUIPlugin.getDefault().openEditor(ConfigurationEditor.ID, configFile);

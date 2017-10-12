@@ -184,7 +184,6 @@ public class CorePlugin extends AbstractCorePlugin {
 		}
 		listener = new ProjectChangeListener();
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener);
-
 	}
 
 	/**

@@ -3,10 +3,10 @@
 <schema targetNamespace="de.ovgu.featureide.fm.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
-         <meta.schema plugin="de.ovgu.featureide.fm.ui" id="de.ovgu.featureide.fm.ui.featuremodeleditor" name="featuremodeleditor"/>
+         <meta.schema plugin="de.ovgu.featureide.fm.ui" id="de.ovgu.featureide.fm.ui.ConfigurationWizard" name="ConfigurationWizard"/>
       </appInfo>
       <documentation>
-         
+         This extension point provides functionality to test if only feature modeling is installed.
       </documentation>
    </annotation>
 
@@ -17,8 +17,8 @@
          </appInfo>
       </annotation>
       <complexType>
-         <sequence minOccurs="1" maxOccurs="unbounded">
-            <element ref="featureModelEditorExtension"/>
+         <sequence>
+            <element ref="ConfigurationWizard"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,36 +47,20 @@
       </complexType>
    </element>
 
-   <element name="featureModelEditorExtension">
+   <element name="ConfigurationWizard">
+      <annotation>
+         <documentation>
+            This is a description
+         </documentation>
+      </annotation>
       <complexType>
-         <attribute name="id" type="string">
+         <attribute name="class" type="string">
             <annotation>
                <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="name" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="description" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
-         <attribute name="class" type="string" use="required">
-            <annotation>
-               <documentation>
-                  
+                  Extensions of other plugins should implement this Interface
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":de.ovgu.featureide.fm.ui.editors.IFeatureModelEditorPage"/>
+                  <meta.attribute kind="java" basedOn=":de.ovgu.featureide.fm.ui.ConfigurationWizard"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -88,7 +72,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         3.4
       </documentation>
    </annotation>
 

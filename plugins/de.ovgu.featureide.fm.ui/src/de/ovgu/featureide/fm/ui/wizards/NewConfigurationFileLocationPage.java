@@ -20,11 +20,18 @@
  */
 package de.ovgu.featureide.fm.ui.wizards;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
+
+import de.ovgu.featureide.fm.ui.FMUIPlugin;
 
 /**
  * 
+ * @author Sebastian Krieter
  * @author Marlen Bernier
  * @author Dawid Szczepanski
  */
@@ -33,6 +40,29 @@ public class NewConfigurationFileLocationPage extends WizardNewFileCreationPage 
 	public NewConfigurationFileLocationPage(String pageName, IStructuredSelection selection) {
 		super(pageName, selection);
 		setTitle("Choose Location");
-		setDescription("Select a path to the new Configuration file.");
+		setDescription("Select a path to the new configuration file.");
+
+	}
+
+	@Override
+	public void handleEvent(Event event) {
+		super.handleEvent(event);
+		if (!FMUIPlugin.getDefault().isOnlyFeatureModelingInstalled()) {
+
+			/**
+			 * The following should only happen when the user chooses a FeatureIDE project and if not only feature modeling is installed
+			 */
+			if (this.getContainerFullPath() != null && this.getContainerFullPath().segmentCount() >= 1) {
+				IResource res = ResourcesPlugin.getWorkspace().getRoot().getProject(this.getContainerFullPath().segment(0).toString());
+				IPath chosenPath = this.getContainerFullPath();
+
+				FMUIPlugin.getDefault().setProjectResource(res, chosenPath);
+				setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 1);
+				if (FMUIPlugin.getDefault().getExtensionWarningMessage().equals("")) {
+					setMessage(FMUIPlugin.getDefault().getExtensionWarningMessage(), 0);
+				}
+			}
+
+		}
 	}
 }
